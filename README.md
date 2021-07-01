@@ -136,7 +136,7 @@ https://whimsical.com/mid-fi-ANxGLpKBH9jvDcHJm4Qvhj
 
 The url to your repository and to your deployed project
 
-[Repository Link](http://github.com)
+[Repository Link](https://github.com/Joanneseiler/campark)
 
 [Deploy Link](http://heroku.com)
 
