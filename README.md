@@ -3,7 +3,7 @@
 
 ## Description
 
-This is a website where the user can find places to park their campervan for free. The user can add locations as well and help other adventurers looking for a place to spend the night.
+This is a website where the user can find places to park their camper or car for free. The user can add locations as well and help other adventurers looking for a place to spend the night.
 
 ## User Stories
 
@@ -15,7 +15,7 @@ This is a website where the user can find places to park their campervan for fre
 - **logout** - As a user I want to be able to log out from the webpage so that I can make sure no one will access my account
 - **userProfile** - As a user I want to access my profile and see which places I added and in which places I already stayed
 - **userAccount** - As a user I want to be able to edit or delete my profile
-- **mapPage** - As a user I want to see all the places that me and others users pinned as a good spot to park a campervan.
+- **mapPage** - As a user I want to see all the places that me and other users pinned as a good spot to park a campervan or car at night
 
 
 ## Backlog
