@@ -113,6 +113,8 @@ longitude: Number
 
 ### API
 
+### Map Library
+
 https://leafletjs.com/
 
 ### Trello
@@ -124,6 +126,11 @@ https://trello.com/b/xVtGtFB5/project-2
 https://whimsical.com/project2-3f8nwCvyLoUsXg36Xbk4SY
 
 ### Wireframes
+Hi-fi:
+https://www.figma.com/file/uSojqSh6FUdwDluCRKVyb5/Untitled?node-id=0%3A1
+
+Mid-fi:
+https://whimsical.com/mid-fi-ANxGLpKBH9jvDcHJm4Qvhj
 
 ### Git
 
