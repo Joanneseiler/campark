@@ -87,7 +87,7 @@ router.get( '/auth/google/callback',
 
 router.get('/profile', (req, res, next) => {
     if (!req.user) {
-        res.redirect('/login'); // can't access the page, so go and log in
+        res.redirect('/'); // can't access the page, so go and log in
         return;
       }
      
