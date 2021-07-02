@@ -1,6 +1,6 @@
 body {
   padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 14px "Poppins", "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
@@ -9,4 +9,9 @@ a {
 
 h1 {
   color: 15px;
+}
+
+#mapid { 
+	height: 600px;
+  width: 1000px;
 }
