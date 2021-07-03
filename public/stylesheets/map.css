@@ -79,7 +79,7 @@
 }
 
 .rate {
-  margin: 8px 0;
+  margin: 8px 32px;
   display: flex;
   flex-flow: row-reverse;
   justify-content: flex-end;

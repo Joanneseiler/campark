@@ -17,7 +17,7 @@
 
     async function getAddressData(lat, lng) {
         let addressApiHost = 'https://nominatim.openstreetmap.org/reverse'
-        let addressApiParams = `?lat=${lat}&lon=${lng}&format=json`
+        let addressApiParams = `?lat=${lat}&lon=${lng}&format=json&accept-language=en`
         let response = await fetch(`${addressApiHost}${addressApiParams}`)
         
         if (response.ok !== true) {
@@ -26,6 +26,7 @@
         }
 
         let data = await response.json()
+        console.log(data.address)
         return data.address;
     }
 
