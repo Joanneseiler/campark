@@ -30,31 +30,20 @@
     }
 
     function getHTMLPopupContent(addressData) {
-        let displayAddress = `${addressData.road ?? ''} ${addressData.house_number ?? ''}\n${addressData.postcode ?? ''} ${addressData.town ?? ''}\n${addressData.country ?? ''}`
-        
-        let mainHeader = document.createElement('h1')
-        mainHeader.innerText = 'ADD A NEW PLACE'
-        
-        let addressHeader = document.createElement('h2')
-        addressHeader.innerText = 'Address'
-        
-        let descriptionHeader = document.createElement('h2')
-        descriptionHeader.innerText = 'Description'
+        let displayAddress = createDisplayableAddressFromAddressData(addressData)
+        let popupContent = document.querySelector('.custom-popup-content').cloneNode(true)
+        popupContent.querySelector('#address').innerHTML = displayAddress
+        popupContent.classList.remove('hidden')
+        return popupContent.outerHTML
+    }
 
-        let form = document.createElement('form')
-        
-        let textarea = document.createElement('textarea')
-        textarea.style.fontSize = '10px'
-        textarea.style.resize = 'none'
-        textarea.rows = '3'
-        textarea.innerHTML = displayAddress
-
-        form.appendChild(mainHeader)
-        form.appendChild(addressHeader)
-        form.appendChild(textarea)
-        form.appendChild(descriptionHeader)
-
-        return form.outerHTML
+    function createDisplayableAddressFromAddressData(addressData) {
+        let road = addressData.road ?? ''
+        let houseNumber = addressData.house_number ?? ''
+        let postcode = addressData.postcode ?? ''
+        let city = addressData.village ?? addressData.town ?? addressData.city ?? ""
+        let country = addressData.country ?? ''
+        return `${road} ${houseNumber}\n${postcode} ${city}\n${country}`
     }
 
     function displayPopup(latlng, popupContent) {

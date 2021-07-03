@@ -3,3 +3,38 @@
 
 <script src="/js/map.js"></script>
 <script>initMap({{loc}})</script>
+
+<div class="custom-popup-content hidden">
+    <h1>ADD A NEW PLACE</h1>
+    <form action="/places/add" method="POST">
+        <h2>Address</h2>
+        <textarea rows="3" name="address" id="address"></textarea>
+        <h2>Description</h2>
+        <textarea minlength="20" maxlength="50" name="description"></textarea>
+        <h2>Price</h2>
+        <div class="radio-group">
+            <div>
+                <input type="radio" id="free" name="price" value="free" />
+                <label for="html">Free</label>
+            </div>
+            <div>
+                <input type="radio" id="paid" name="price" value="paid" />
+                <label for="css">Paid</label>
+            </div>
+        </div>
+        <h2>Rating</h2>
+        <div class="rate">
+            <input type="radio" id="star5" name="rate" value="5" />
+            <label for="star5" title="text">5 stars</label>
+            <input type="radio" id="star4" name="rate" value="4" />
+            <label for="star4" title="text">4 stars</label>
+            <input type="radio" id="star3" name="rate" value="3" />
+            <label for="star3" title="text">3 stars</label>
+            <input type="radio" id="star2" name="rate" value="2" />
+            <label for="star2" title="text">2 stars</label>
+            <input type="radio" id="star1" name="rate" value="1" />
+            <label for="star1" title="text">1 star</label>
+        </div>
+        <button type="submit">SUBMIT</button>
+    </form>
+</div>

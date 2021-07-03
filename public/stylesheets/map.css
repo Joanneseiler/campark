@@ -1,0 +1,109 @@
+#mapid { 
+	height: 600px;
+  width: 1000px;
+  border-radius: 20px;
+}
+
+.leaflet-popup-close-button {
+  padding: 8px 24px 0 0 !important;
+  color: black !important;
+}
+
+.leaflet-popup-close-button:hover {
+  color: white !important;
+}
+
+.leaflet-popup-content-wrapper {
+  background-color: #C5D1D8;
+}
+
+.custom-popup-content form {
+  width: 240px;
+  background: none;
+  text-align: left;
+}
+
+.custom-popup-content h1 {
+  margin: 0 0 8px 0;
+  font-size: 14px;
+  font-weight: normal;
+}
+
+.custom-popup-content h2 {
+  margin: 0;
+  font-size: 12px;
+  font-weight: normal;
+}
+
+.custom-popup-content form {
+  font-family: "Poppins", sans-serif;
+  font-size: 12px;
+  display: block;
+  padding: 8px 16px;
+}
+
+.custom-popup-content input[type="radio"] {
+  width: auto;
+  display:inline-block;
+}
+
+.custom-popup-content textarea {
+  font-family: "Poppins", sans-serif;
+  outline: none;
+  font-size: 10px; 
+  resize: none;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 4px 4px 4px rgb(0 0 0 / 10%);
+}
+
+.custom-popup-content .radio-group {
+  display: flex;
+  justify-content: space-around;
+}
+
+.custom-popup-content button[type="submit"] {
+  margin-top: 16px;
+  border-radius: 16px;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 12px;
+  width: 100%;
+}
+.custom-popup-content button[type="submit"]:hover {
+  color: white;
+}
+
+.hidden {
+  display: none;
+}
+
+.rate {
+  margin: 8px 0;
+  display: flex;
+  flex-flow: row-reverse;
+  justify-content: flex-end;
+}
+.rate:not(:checked) > input {
+  position:absolute;
+  top:-9999px;
+}
+.rate:not(:checked) > label {
+  float:right;
+  width:1em;
+  overflow:hidden;
+  white-space:nowrap;
+  cursor:pointer;
+  font-size:20px;
+  color: rgba(255, 255, 255, 0.5);
+}
+.rate:not(:checked) > label:before {
+  content: '★ ';
+}
+.rate > input:checked ~ label {
+  color: #1A2F3D;    
+}
+.rate:not(:checked) > label:hover,
+.rate:not(:checked) > label:hover ~ label {
+  color: #1A2F3D;  
+}

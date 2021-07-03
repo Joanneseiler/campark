@@ -13,4 +13,8 @@ router.get("/places", (req, res, next) => {
     res.render("places/map.hbs", {loc: JSON.stringify(loc), places: []})
 })
 
+router.post("/places/add", (req, res, next) => {
+    console.log(req.body)
+})
+
 module.exports = router;
