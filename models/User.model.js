@@ -16,7 +16,7 @@ const userSchema = new Schema({
     //required: true
   },
   googleID: String,
-  profilePic: String
+  profilePic: String,
 }, 
 {
   timestamps: {

@@ -1,1 +1,16 @@
-<a href="/logout">Logout</a>
+<div id="test"></div>
+<img src="{{image}}" alt="">
+<h6>{{username}}</h6>
+<p>{{country}}</p>
+
+<h6> <span>Number{{placesAdded.length}}</span>Places added</h6>
+{{#each placeAdded}}
+<img src="" alt="">
+<p>Address</p>
+{{/each}}
+
+<h6><span>Number{{placesVisited.length}}</span> Places visited</h6>
+{{#each placeVisited}}
+<img src="" alt="">
+<p>Address</p>
+{{/each}}
