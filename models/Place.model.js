@@ -1,8 +1,9 @@
-const mongoose = require("mongoose");
+const { Schema, model } = require("mongoose");
 
 require("./User.model")
+require("./Review.model")
 
-const placeSchema = new mongoose.Schema({
+const placeSchema = new Schema({
     latitude: {
         type: Number,
         //required: true
@@ -27,14 +28,20 @@ const placeSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    userId: {
+    authorId: {
         ref: "user",
-        type: mongoose.Schema.Types.ObjectId
+        type: Schema.Types.ObjectId
     },
-    image: String
+    image: {
+       type: String,
+        default: 'images/default-image.jpeg'
+    },
+    reviews: [{ 
+        type: Schema.Types.ObjectId, 
+        ref: "review" }]
 });
 
-const Place = mongoose.model("place", placeSchema);
+const Place = model("place", placeSchema);
 
 module.exports = Place;
 

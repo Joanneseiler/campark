@@ -42,14 +42,21 @@ const salt = bcrypt.genSaltSync(10);
 
 const hash = bcrypt.hashSync(password, salt);
 
-User.create({ username, country, email, password: hash })
-      .then(() => {
-        req.app.locals.isLoggedIn = true;
-        res.redirect('/profile')
-      })
-      .catch((err) => {
-          next(err)
-      })
+  User.findOne({ username })
+              .then(user => {
+                if (!user) {
+                  User.create({ username, country, email, password: hash })
+                  .then(() => {
+                    req.app.locals.isLoggedIn = true;
+                    return res.redirect('/profile')
+                  })
+                  .catch((err) => {
+                      next(err)
+                  })
+                } else {
+                  return res.render('auth/signup.hbs', {error: 'Username already registered.'})
+                }
+              })
 })
 
 router.post('/signin', (req, res, next) => {
@@ -57,12 +64,13 @@ router.post('/signin', (req, res, next) => {
       if (err) {
         // Something went wrong authenticating user
         return next(err);
+        
       }
    
       if (!theUser) {
+        console.log(failureDetails.message)
         // Unauthorized, `failureDetails` contains the error messages from our logic in "LocalStrategy" {message: '…'}.
-        res.render('auth/signin', { error: failureDetails.message }, {title: 'sign up or sign in'});
-        return;
+        return res.render('auth/signin.hbs', {title:'sign in or sign up', error: failureDetails.message });
       }
    
       // save user in session: req.user
@@ -74,10 +82,10 @@ router.post('/signin', (req, res, next) => {
    
         // All good, we are now logged in and `req.user` is now set
         req.app.locals.isLoggedIn = true;
-        res.redirect('/profile')
+        return res.redirect('/profile')
       });
     })(req, res, next);
-  });
+});
 
 
 

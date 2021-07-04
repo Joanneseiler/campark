@@ -1,5 +1,8 @@
 const { Schema, model } = require("mongoose");
 
+require("./Place.model")
+require("./Review.model")
+
 const userSchema = new Schema({
   username: {
     type: String,
@@ -16,7 +19,12 @@ const userSchema = new Schema({
     //required: true
   },
   googleID: String,
-  profilePic: String,
+  profilePic: {
+    type: String,
+    default: 'images/default-avatar.png'
+  },
+  reviewsAdded: [{ type: Schema.Types.ObjectId, ref: 'review' }],
+  placesAdded: [{ type: Schema.Types.ObjectId, ref: 'place' }]
 }, 
 {
   timestamps: {
