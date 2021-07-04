@@ -2,6 +2,7 @@
 	height: 600px;
   width: 1000px;
   border-radius: 20px;
+  margin-top: 120px;
 }
 
 .leaflet-popup-close-button {
@@ -55,11 +56,29 @@
   border: none;
   border-radius: 8px;
   box-shadow: 4px 4px 4px rgb(0 0 0 / 10%);
+  width: 100%;
+  padding: 8px;
+  margin: 8px 0;
+  color: rgba(0, 0, 0, 0.84)
+}
+
+.custom-popup-content .radio-group label {
+  margin-left: 6px;
+  margin-right: 12px;
+}
+
+.custom-popup-content .radio-group > div {
+  display: flex;
+  align-items: center;
+}
+
+.custom-popup-content input {
+  height: inherit;
 }
 
 .custom-popup-content .radio-group {
   display: flex;
-  justify-content: space-around;
+  margin: 8px 0 12px 0;
 }
 
 .custom-popup-content button[type="submit"] {
@@ -79,7 +98,7 @@
 }
 
 .rate {
-  margin: 8px 32px;
+  margin: 8px 0;
   display: flex;
   flex-flow: row-reverse;
   justify-content: flex-end;
