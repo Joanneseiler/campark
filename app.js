@@ -115,8 +115,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // 👇 Start handling routes here
-const index = require("./routes/index");
-app.use("/", index);
+const homeRoutes = require("./routes/home.routes");
+app.use("/", homeRoutes);
 
 const placesRoutes = require("./routes/places.routes")
 app.use("/", placesRoutes)

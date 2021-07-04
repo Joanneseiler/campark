@@ -1,8 +1,9 @@
 #mapid { 
-	height: 600px;
-  width: 1000px;
+	height: 80%;
+  width: 80%;
+  margin: 0 64px;
   border-radius: 20px;
-  margin-top: 120px;
+  margin-top: 58px;
 }
 
 .leaflet-popup-close-button {

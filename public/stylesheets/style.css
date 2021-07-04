@@ -1,5 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
+
+html {
+  height: 100%;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -12,6 +17,7 @@ body {
   flex-direction: column;
   font-family: 'Poppins', sans-serif;
   font-weight: 400;
+  height: 100%;
 }
 
 p {
@@ -121,6 +127,10 @@ option:first-child {
   color: #757575;
 }
 
+.dark-blue-container {
+  margin-top: 58px;
+}
+
 .container {
   border-radius: 10px;
   background-color: #f1f1f1;
@@ -130,7 +140,6 @@ option:first-child {
   width: 1030px;
   max-width: 100%;
   min-height: 480px;
-  margin-top: 120px;
 }
 
 .form-container {
