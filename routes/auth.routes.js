@@ -4,8 +4,10 @@ const bcrypt = require('bcryptjs');
 const passport = require('passport');
 const GoogleStrategy = require("passport-google-oauth20").Strategy; 
 
+
+
 router.get('/auth', (req, res, next) => {
-    res.render('auth/auth.hbs')
+    res.render('auth/auth.hbs', {title: 'sign up or sign in'})
 })
 
 router.post('/signup', (req, res, next) => {
@@ -38,6 +40,7 @@ const hash = bcrypt.hashSync(password, salt);
 
 User.create({ username, country, email, password: hash })
       .then(() => {
+        req.app.locals.isLoggedIn = true;
           res.render('user/profile.hbs')
       })
       .catch((err) => {
@@ -66,7 +69,8 @@ router.post('/signin', (req, res, next) => {
         }
    
         // All good, we are now logged in and `req.user` is now set
-        res.redirect('/');
+        req.app.locals.isLoggedIn = true;
+        res.redirect('/profile');
       });
     })(req, res, next);
   });
@@ -78,11 +82,22 @@ router.get('/auth/google',
   	[ 'email', 'profile' ] }
 ));
  
-router.get( '/auth/google/callback',
-    passport.authenticate( 'google', {
-        successRedirect: '/profile',
-        failureRedirect: '/auth'
-}));
+// router.get( '/auth/google/callback',
+//     passport.authenticate( 'google', {
+//         successRedirect: '/profile',
+//         failureRedirect: '/auth'
+// }));
+
+router.get('/auth/google/callback', (req, res, next) =>
+  passport.authenticate('google', (err, user, info) => {
+    if (err) return next(err);
+
+    if  (!user) return res.redirect('/auth');
+    req.app.locals.isLoggedIn = true;
+    return res.redirect('/profile');
+
+  })(req, res, next)
+);
 
 
 router.get('/profile', (req, res, next) => {
@@ -92,6 +107,7 @@ router.get('/profile', (req, res, next) => {
       }
      
       // ok, req.user is defined
+      req.app.locals.isLoggedIn = true;
       res.render('user/profile', { user: req.user });
 })
 
@@ -99,6 +115,7 @@ router.get('/logout', (req, res, next) => {
     req.logout();
     req.session.destroy()
     res.redirect('/');
+    req.app.locals.isLoggedIn = false;
 })
 
 module.exports = router;

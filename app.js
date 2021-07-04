@@ -19,10 +19,10 @@ const app = express();
 require("./config")(app);
 
 // default value for title local
-const projectName = "campark";
-const capitalized = (string) => string[0].toUpperCase() + string.slice(1).toLowerCase();
+// const projectName = "campark";
+// const capitalized = (string) => string[0].toUpperCase() + string.slice(1).toLowerCase();
 
-app.locals.title = `${capitalized(projectName)} created with IronLauncher`;
+// app.locals.title = `${capitalized(projectName)} created with IronLauncher`;
 
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
@@ -102,7 +102,7 @@ app.use(session({
   resave: false, 
   saveUninitialized: false,
   cookie: {
-      maxAge: 10000 * 24 * 60 * 60 //isso equivale 1 dia em milissegundos. Os cookies são limpos após esse período. 
+      maxAge: 10000 * 24 * 60 * 60 
   },
   store: MongoStore.create({ //store all the session informations
   mongoUrl: process.env.MONGODB_URI || "mongodb://localhost/campark",

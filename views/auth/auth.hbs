@@ -5,9 +5,9 @@
                 <div class="form form-sign-up">
                     <h6>SIGN UP</h6>
                     <div class="sign-up local">
-                        <input name="username" type="text" placeholder="Enter your username">
-                        <input name="email" type="email" placeholder="Enter your email">
-                        <select id="country" name="country" class="form-control">
+                        <input name="username" type="text" placeholder="Enter your username" autofocus required>
+                        <input name="email" type="email" placeholder="Enter your email" required>
+                        <select id="country" name="country" class="form-control" required>
                             <option value="" disabled selected>Select your country</option>
                             <option value="Afghanistan">Afghanistan</option>
                             <option value="Åland Islands">Åland Islands</option>
@@ -264,16 +264,15 @@
                             <option value="Zambia">Zambia</option>
                             <option value="Zimbabwe">Zimbabwe</option>
                         </select>
-                        <input name="password" type="password" placeholder="Enter your Password">
-                        <input name="confirmPassword" type="password" placeholder="Confirm your Password">
+                        <input name="password" type="password" placeholder="Enter your Password" required>
+                        <input name="confirmPassword" type="password" placeholder="Confirm your Password" required>
                         <button type="submit">SIGN UP</button>
                     </div>
-                    <div class="line-horizontal">
-                        <span>or</span>
-                    </div>
+                    <hr>
+                    <span>or</span>
                     <div class="google">
-                        <a class="btn btn-block btn-social btn-google" href="/auth/google">
-                            <i class="fab fa-google"></i>
+                        <a class="btn-google" href="/auth/google">
+                            <img src="/images/google.svg" alt="" width="15px">
                             Continue with Google
                         </a>
                     </div>
@@ -283,18 +282,17 @@
         <div class="form-container sign-in-container">
             <form action="/signin" method="POST">
                 <h6>SIGN IN</h6>
-                <div class="form form-sign-">
+                <div class="form form-sign-in">
                     <div class="sign-in local">
-                        <input name="username" type="text" placeholder="Enter your username">
-                        <input name="password" type="password" placeholder="Enter your Password">
+                        <input name="username" type="text" placeholder="Enter your username" required autofocus>
+                        <input name="password" type="password" placeholder="Enter your Password" required>
                         <button type="submit">SIGN IN</button>
                     </div>
-                    <div class="line-horizontal">
-                        <span>or</span>
-                    </div>
+                    <hr>
+                    <span>or</span>
                     <div class="google">
-                        <a class="btn btn-block btn-social btn-google" href="/auth/google">
-                            <i class="fab fa-google"></i>
+                        <a class="btn-google" href="/auth/google">
+                            <img src="/images/google.svg" alt="" width="15px">
                             Continue with Google
                         </a>
                     </div>
@@ -313,10 +311,13 @@
                 </div>
             </div>
         </div>
+    </div>
+</div>
 
+{{!-- error message --}}
 
-        {{!-- error message --}}
+{{#if error}}
+<p class="error">{{error}}</p>
+{{/if}}
 
-        {{#if error}}
-        <p class="error">{{error}}</p>
-        {{/if}}
+<script src="/js/auth.js"></script>
