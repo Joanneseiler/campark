@@ -9,6 +9,8 @@ html {
   box-sizing: border-box;
 }
 
+/* sign in/ sign up */
+
 body {
   background: #C5D1D8;
   display: flex;
@@ -110,7 +112,7 @@ select {
 
 .form-container select {
   padding: 0 8px;
-} 
+}
 
 select:focus,
 input:focus {
@@ -278,6 +280,7 @@ div.google {
   left: 16px;
 }
 
+/* navbar */
 
 .dropdown-toggle::after {
   display: none;
@@ -322,4 +325,10 @@ div.google {
 
 .dropdown-item li a {
   color: #484848 !important
+}
+
+#test {
+  background-color: tomato;
+  height: 200px;
+  display: flex;
 }
