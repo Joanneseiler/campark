@@ -1,17 +1,40 @@
 
     let map;
 
-    function initMap(loc) {
+    async function initMap(loc) {
         map = L.map('mapid').setView(loc, 10);
         L.tileLayer.provider('CartoDB.Positron').addTo(map);
 
         //L.marker(loc).addTo(map)
         //.bindPopup('<a href="/">now Home, later add the place</a>')
 
-        map.on("click", (async (event)=> {    
+        let response = await fetch('/places')
+        
+        if (response.ok !== true) {
+            return
+        }
+
+        let data = await response.json()
+
+        data.places.forEach((place) => {
+            let latlng = L.latLng(place.latitude, place.longitude)
+            const icon = L.icon({
+                iconUrl: '/images/marker.png',
+                iconSize:     [30, 27], // size of the icon
+                iconAnchor:   [28, 27], // point of the icon which will correspond to marker's location
+                popupAnchor:  [28, 27] // point from which the popup should open relative to the iconAnchor
+            })
+            let marker = L.marker(latlng, {icon: icon}).addTo(map)
+            marker.on('click', () => {
+                let popupContent = getHTMLPlaceDetailsPopupContent(place)
+                displayPlaceDetailsPopup(latlng, popupContent)
+            })
+        })
+
+        map.on("click", (async (event)=> {
             let addressData = await getAddressData(event.latlng.lat, event.latlng.lng)
-            let popupContent = getHTMLPopupContent(addressData)
-            displayPopup(event.latlng, popupContent)
+            let popupContent = getHTMLPopupContent(addressData, event.latlng)
+            displayPlacePopup(event.latlng, popupContent)
         }))
     }
 
@@ -26,14 +49,25 @@
         }
 
         let data = await response.json()
-        console.log(data.address)
         return data.address;
     }
 
-    function getHTMLPopupContent(addressData) {
+    function getHTMLPopupContent(addressData, latlng) {
         let displayAddress = createDisplayableAddressFromAddressData(addressData)
         let popupContent = document.querySelector('.custom-popup-content').cloneNode(true)
         popupContent.querySelector('#address').innerHTML = displayAddress
+        popupContent.querySelector('#latitude').value = latlng.lat
+        popupContent.querySelector('#longitude').value = latlng.lng
+        popupContent.classList.remove('hidden')
+        return popupContent.outerHTML
+    }
+
+    function getHTMLPlaceDetailsPopupContent(place) {
+        let popupContent = document.querySelector('.custom-place-details-popup-content').cloneNode(true)
+        popupContent.querySelector('#details-address').innerHTML = place.address
+        popupContent.querySelector('#details-description').innerHTML = place.description
+        popupContent.querySelector('#details-price').innerHTML = place.price
+        popupContent.querySelector('#details-rate').innerHTML = place.rate
         popupContent.classList.remove('hidden')
         return popupContent.outerHTML
     }
@@ -47,8 +81,15 @@
         return `${road} ${houseNumber}\n${postcode} ${city}\n${country}`
     }
 
-    function displayPopup(latlng, popupContent) {
+    function displayPlacePopup(latlng, popupContent) {
         // setContent() expects valid HTML (https://leafletjs.com/reference-1.7.1.html#popup-option)
+        L.popup({keepInView: true})
+            .setLatLng(latlng)
+            .setContent(popupContent)
+            .openOn(map);
+    }
+
+    function displayPlaceDetailsPopup(latlng, popupContent) {
         L.popup({keepInView: true})
             .setLatLng(latlng)
             .setContent(popupContent)
