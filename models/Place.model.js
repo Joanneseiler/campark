@@ -34,7 +34,7 @@ const placeSchema = new Schema({
     },
     image: {
        type: String,
-        default: 'images/default-image.jpeg'
+        default: '/images/default-image.jpeg'
     },
     reviews: [{ 
         type: Schema.Types.ObjectId, 

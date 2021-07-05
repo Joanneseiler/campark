@@ -41,7 +41,7 @@ router.get("/places/:id", (req, res, next) => {
 
     Place.findById(dynamicPlacesId)
         .then((place) => {
-            res.render("places/details.hbs", {place})
+            res.render("places/details.hbs", {place: place, ratingStars: "★".repeat(place.rate) + "☆".repeat(5-place.rate)})
         })
         .catch((err)=>{
             next(err)

@@ -1,12 +1,28 @@
 
-<img src={{place.image}} alt="Picture of the place">
+<div id="details-page">
+    <div id ="places-image">
+        <img src={{place.image}} alt="Picture of the place">
+    </div>
+    <div id="place-details">
+        <p>{{place.description}}</p>
+        <p>{{place.address}}</p>
+        <p>$ {{place.price}}</p>
+        <p>{{ratingStars}}</p>
+    </div>
+    <div>
+        <p>{{place.reviews}}</p>
+    </div> 
+</div>
+
+<div id="mini-map"></div>
 
 
-<p>{{place.description}}</p>
-<p>{{place.address}}</p>
-<p>{{place.latitude}}, {{place.longitude}}</p>
-<p>{{place.price}}</p>
-<p>{{place.rate}}</p>
+<script>
+	const map = L.map('mini-map').setView([{{place.latitude}}, {{place.longitude}}], 13);
 
+    L.tileLayer.provider('CartoDB.Positron').addTo(map);
 
-<p>{{place.reviews}}</p>
+	L.marker([{{place.latitude}}, {{place.longitude}}]).addTo(map)
+	.bindPopup('Here is your parking spot.')
+</script>
+
