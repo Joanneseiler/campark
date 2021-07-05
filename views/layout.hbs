@@ -56,7 +56,11 @@
                      data-bs-toggle="dropdown" aria-expanded="false">
                      <div class="user-nav">
                         <i class="fas fa-bars"></i>
+                        {{#unless hasPicture}}
                         <i class="fas fa-user" style="font-size: 20px"></i>
+                        {{else}}
+                        <img src="{{profilePic}}" alt="" width="15px" style="border-radius: 50%">
+                        {{/unless}}
                      </div>
                   </a>
                   <ul class="dropdown-menu" aria-labelledby="navbarDropdown">

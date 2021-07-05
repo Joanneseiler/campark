@@ -3,6 +3,7 @@
 
 const router = require("express").Router();
 const Place = require("../models/Place.model")
+const User = require("../models/User.model")
 
 router.get("/map", async (req, res, next) => {
     // Sending some data to the hbs page
@@ -25,11 +26,16 @@ router.get("/places", async (req, res, next) => {
 
 router.post("/places/add", (req, res, next) => {
     const {address, description, price, rate, latitude, longitude} = req.body
-
-    Place.create({address, description, price, rate, latitude, longitude})
+    const user = req.user._id
+    Place.create({address, description, price, rate, latitude, longitude, authorId: user})
+    .then((place) => {
+        console.log(place)
+        return User.findByIdAndUpdate({_id: user}, { $push: { placesAdded: place._id } })
+        })
         .then(()=>{
             res.redirect("/map")
         })
+
         .catch((err)=>{
             next(err)
         })
