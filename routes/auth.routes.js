@@ -46,9 +46,22 @@ const hash = bcrypt.hashSync(password, salt);
               .then(user => {
                 if (!user) {
                   User.create({ username, country, email, password: hash })
-                  .then(() => {
-                    req.app.locals.isLoggedIn = true;
-                    return res.redirect('/profile')
+                  .then((user) => {
+                    passport.authenticate('local', (err, user, failureDetails) => {
+                      // save user in session: req.user
+                      req.login(user, err => {
+                        if (err) {
+                          // Session save went bad
+                          return next(err);
+                        }
+                   
+                        // All good, we are now logged in and `req.user` is now set
+                        console.log('req user ' + req.user)
+                        req.app.locals.isLoggedIn = true;
+                        req.app.locals.profilePic = req.user.profilePic
+                        return res.redirect('/profile')
+                      });
+                    })(req, res, next);                   
                   })
                   .catch((err) => {
                       next(err)
@@ -94,12 +107,6 @@ router.get('/auth/google',
   	[ 'email', 'profile' ] }
 ));
  
-// router.get( '/auth/google/callback',
-//     passport.authenticate( 'google', {
-//         successRedirect: '/profile',
-//         failureRedirect: '/auth'
-// }));
-
 router.get('/auth/google/callback', (req, res, next) =>
   passport.authenticate('google', (err, user, info) => {
     if (err) return next(err);
@@ -114,8 +121,10 @@ router.get('/auth/google/callback', (req, res, next) =>
 router.get('/logout', (req, res, next) => {
     req.logout();
     req.session.destroy()
-    res.redirect('/');
     req.app.locals.isLoggedIn = false;
+    req.app.locals.profilePic = 'images/default-avatar.png'
+    res.redirect('/');
+ 
 })
 
 module.exports = router;

@@ -32,7 +32,9 @@
         })
 
         map.on("click", (async (event)=> {
+            console.log(event)
             let addressData = await getAddressData(event.latlng.lat, event.latlng.lng)
+            
             let popupContent = getHTMLPopupContent(addressData, event.latlng)
             displayPlacePopup(event.latlng, popupContent)
         }))
