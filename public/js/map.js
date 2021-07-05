@@ -5,9 +5,6 @@
         map = L.map('mapid').setView(loc, 10);
         L.tileLayer.provider('CartoDB.Positron').addTo(map);
 
-        //L.marker(loc).addTo(map)
-        //.bindPopup('<a href="/">now Home, later add the place</a>')
-
         let response = await fetch('/places')
         
         if (response.ok !== true) {
@@ -64,10 +61,21 @@
 
     function getHTMLPlaceDetailsPopupContent(place) {
         let popupContent = document.querySelector('.custom-place-details-popup-content').cloneNode(true)
-        popupContent.querySelector('#details-address').innerHTML = place.address
-        popupContent.querySelector('#details-description').innerHTML = place.description
-        popupContent.querySelector('#details-price').innerHTML = place.price
-        popupContent.querySelector('#details-rate').innerHTML = place.rate
+        let newlineSplit = place.address.split('\n')
+        let cityLine = newlineSplit[1]
+        let spaceSplit = cityLine.split(' ')
+
+        let [, ...city] = spaceSplit
+
+        popupContent.querySelector('#details-city').innerHTML = city.join(' ')
+
+        let detailAddress = place.address
+        detailAddress = detailAddress.replaceAll('\r\n', '<br>') // "neue Zeile" mit "HTML Umbruch" tauschen 
+        // \r\n' damit es für alle Betriebssysteme geht
+        popupContent.querySelector('#details-address').innerHTML = detailAddress
+        //popupContent.querySelector('#details-description').innerHTML = place.description
+        //popupContent.querySelector('#details-price').innerHTML = place.price
+        popupContent.querySelector('#details-rate').innerHTML = "★".repeat(place.rate) + "☆".repeat(5-place.rate)
         popupContent.classList.remove('hidden')
         return popupContent.outerHTML
     }
@@ -83,14 +91,14 @@
 
     function displayPlacePopup(latlng, popupContent) {
         // setContent() expects valid HTML (https://leafletjs.com/reference-1.7.1.html#popup-option)
-        L.popup({keepInView: true})
+        L.popup({keepInView: true, className: 'popup-add-place'})
             .setLatLng(latlng)
             .setContent(popupContent)
             .openOn(map);
     }
 
     function displayPlaceDetailsPopup(latlng, popupContent) {
-        L.popup({keepInView: true})
+        L.popup({keepInView: true, className: 'popup-details'})
             .setLatLng(latlng)
             .setContent(popupContent)
             .openOn(map);

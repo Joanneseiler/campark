@@ -6,11 +6,11 @@ require("./Review.model")
 const placeSchema = new Schema({
     latitude: {
         type: Number,
-        //required: true
+        required: true
     },
     longitude: {
         type: Number,
-        //required: true
+        required: true
     },
     address: {
         type: String,
