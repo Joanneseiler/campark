@@ -1,4 +1,3 @@
-//places/add (only post?)
 //places/:id
 //review (only post)
 
@@ -32,9 +31,21 @@ router.post("/places/add", (req, res, next) => {
             res.redirect("/map")
         })
         .catch((err)=>{
-            console.log(err)
+            next(err)
         })
-        
+})
+
+
+router.get("/places/:id", (req, res, next) => {
+    let dynamicPlacesId = req.params.id
+
+    Place.findById(dynamicPlacesId)
+        .then((place) => {
+            res.render("places/details.hbs", {place})
+        })
+        .catch((err)=>{
+            next(err)
+        })
 })
 
 module.exports = router;

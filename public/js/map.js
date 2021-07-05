@@ -76,6 +76,7 @@
         //popupContent.querySelector('#details-description').innerHTML = place.description
         //popupContent.querySelector('#details-price').innerHTML = place.price
         popupContent.querySelector('#details-rate').innerHTML = "★".repeat(place.rate) + "☆".repeat(5-place.rate)
+        popupContent.querySelector('#details-link').href = `places/${place._id}`
         popupContent.classList.remove('hidden')
         return popupContent.outerHTML
     }
