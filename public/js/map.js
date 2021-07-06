@@ -1,8 +1,8 @@
 
     let map;
 
-    async function initMap(loc) {
-        map = L.map('mapid').setView(loc, 6);
+    async function initMap(loc, zoomLevel) {
+        map = L.map('mapid').setView(loc, zoomLevel);
         L.tileLayer.provider('CartoDB.Positron').addTo(map);
 
         let response = await fetch('/places')

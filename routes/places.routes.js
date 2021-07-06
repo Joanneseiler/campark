@@ -7,14 +7,19 @@ const uploader = require('../config/cloudinary.config.js');
 router.get("/map", async (req, res, next) => {
     // Sending some data to the hbs page
     let loc = [54.80549559002091, 9.4120769896646]
+    let zoomLevel = 6
     //Always stringify data that the scripts might use in your hbs file
-
+    if (req.query.lon !== undefined && req.query.lat !== undefined) {
+        loc = [parseFloat(req.query.lat), parseFloat(req.query.lon)]
+        zoomLevel = 13
+    }
     res.render(
         "places/map.hbs", 
         {
             title: "Places", 
             loc: JSON.stringify(loc), 
-            profilePic: req.user.profilePic
+            profilePic: req.user != null ? req.user.profilePic : null,
+            zoomLevel
         }
     )
 })
@@ -88,28 +93,6 @@ Review.create({rate, date, comment, userId: user})
         console.log(err)
      })
 })
-// WE TRIED THIS BUT ITS NOT WORKING
-// router.post("/places/:placeId/review", (req, res, next) => {
-//     const {placeId} = req.params
-//     const {rate, date, comment} = req.body
-//     const user = req.user._id
-
-//     Review.create({rate, date, comment, userId: user})
-//         .then((review)=> {
-//             return User.findByIdAndUpdate({_id: user}, { $push: { reviewsAdded: review._id }})
-//         })
-//         .then(()=>{
-//             return Place.findById({_id: placeId})
-//         })
-//         .then((place)=>{
-//             return User.findByIdAndUpdate({_id: user}, { $push: { placesVisited: place._id }})
-//         })
-//         .then(() => {
-//             res.redirect("/places/{place._id}")
-//         })
-//         .catch((err)=>{
-//             console.log(err)
-//         })
 
 
 module.exports = router;

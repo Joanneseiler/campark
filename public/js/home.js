@@ -1,8 +1,3 @@
-const countries = [
-    { label: 'United Kingdom', value: 'UK' },
-    { label: 'United States', value: 'US' }
-];
-
 window.addEventListener('load', () => {
     const input = document.getElementById("searchbar");
     input.addEventListener('focusout', () => {
@@ -11,17 +6,20 @@ window.addEventListener('load', () => {
 
     autocomplete({
         input: input,
-        fetch: function(text, update) {
+        fetch: async function(text, update) {
+            input.classList.add('searching')
             text = text.toLowerCase();
             // you can also use AJAX requests instead of preloaded data
-            const suggestions = countries.filter(n => n.label.toLowerCase().startsWith(text))
-            update(suggestions);
+            const data = await fetch(`https://nominatim.openstreetmap.org/search.php?city=${text}&format=json&language=en`);
+            const cities = await data.json()
+            const suggestions = cities.map(city => ({label: city.display_name, value: {lon: city.lon, lat: city.lat}}))
+            input.classList.remove('searching')
+            update(suggestions)
         },
-        onSelect: function(item) {
-            input.value = item.label;
-        },
-        customize: () => {
-            input.classList.add('searching')
+        debounceWaitMs: 200,
+        onSelect: function(city) {
+            input.value = city.label;
+            window.location.href = `/map?lon=${city.value.lon}&lat=${city.value.lat}`
         }
     });
 })

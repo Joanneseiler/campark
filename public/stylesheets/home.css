@@ -1,10 +1,16 @@
 #searchbar {
     outline: none;
+    background: url(/images/marker.png) no-repeat scroll 12px 9px;
+    background-size: 24px;
+    padding-left: 48px;
+    background-color: white;
 }
 
 #searchbar.searching {
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
+    background: url(/images/search-loader.gif) no-repeat scroll 18px 14px;
+    background-color: white;
 }
 
 .home-position {
