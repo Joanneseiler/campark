@@ -4,7 +4,7 @@ require("./User.model")
 require("./Place.model")
 
 const reviewSchema = new Schema({
-    rating:{
+    rate: {
       type: Number,
       required: true,
   },

@@ -1,11 +1,14 @@
- #details-page {
+/* .handle-hight {
+    height: 0%;
+} */
+
+#details-page {
     display: flex;
     flex-direction: column;
-    margin-top: 64px;
 }
 
 #places-image {
-    margin-top: 64px;
+    margin-top: 80px;
 }
 
 #places-image img{
@@ -23,3 +26,35 @@
     border-radius: 20px;
 }
 
+#review textarea {
+    font-family: "Poppins", sans-serif;
+    outline: none;
+    font-size: 12px; 
+    resize: none;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 4px 4px 4px rgb(0 0 0 / 10%);
+    width: 100%;
+    padding: 8px;
+    margin: 8px 0;
+    color: rgba(0, 0, 0, 0.84)
+  }
+
+  #review button[type="submit"] {
+    margin-top: 16px;
+    border-radius: 16px;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 12px;
+    width: 100%;
+  }
+
+  /* #review button[type="submit"]:hover {
+    color: white;
+  } */
+
+  #review form {
+      width: 440px;
+      background: none;
+      text-align: left;
+  }

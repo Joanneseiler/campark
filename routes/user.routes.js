@@ -15,8 +15,9 @@ router.get('/profile', (req, res, next) => {
       req.app.locals.isLoggedIn = true;
     User.findOne({_id: req.user._id})
     .populate("placesAdded")
+    .populate("reviewsAdded")
     .then((user) => {
-      res.render('user/profile', {title: req.user.username, username: req.user.username, country: req.user.country, image: req.user.profilePic, placesAdded: user.placesAdded, placesVisited: req.user.placesVisited});
+      res.render('user/profile', {title: req.user.username, username: req.user.username, country: req.user.country, image: req.user.profilePic, placesAdded: user.placesAdded, placesVisited: user.reviewsAdded});
     })
     .catch((err) => {
       next(err)

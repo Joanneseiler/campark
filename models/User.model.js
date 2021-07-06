@@ -24,7 +24,8 @@ const userSchema = new Schema({
     default: 'images/default-avatar.png'
   },
   reviewsAdded: [{ type: Schema.Types.ObjectId, ref: 'review' }],
-  placesAdded: [{ type: Schema.Types.ObjectId, ref: 'place' }]
+  placesAdded: [{ type: Schema.Types.ObjectId, ref: 'place' }],
+  placesVisited: [{ type: Schema.Types.ObjectId, ref: 'place' }]
 }, 
 {
   timestamps: {
