@@ -22,7 +22,7 @@
             <div id="mini-map"></div>
         </div>
         <div id="review">
-            <form action="/review" method="POST">
+            <form action="/places/{{place._id}}/review" method="POST">
                 <h3>Description</h3>
                 <textarea minlength="20" maxlength="200" name="comment" placeholder="Please leave a review and help other travelers."></textarea>
                 <h3>Rating</h3>

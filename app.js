@@ -82,12 +82,14 @@ if (process.env.CLIENT_ID && process.env.CLIENT_SECRET) {
             User.findOne({ googleID: profile.id })
               .then(user => {
                 if (user) {
+   
                   done(null, user);
                   return;
                 }
        
                 User.create({ googleID: profile.id })
                   .then(newUser => {
+
                     done(null, newUser);
                   })
                   .catch(err => done(err)); // closes User.create()

@@ -34,9 +34,12 @@ router.post("/places/add", uploader.single("image"), (req, res, next) => {
         // }
         
     const {address, description, price, rate, latitude, longitude,} = req.body
-    const image = req.file.path
-    if (!req.file.path){
+    let image
+    if (!req.file || !req.file.path){
         image = '/images/default-image.jpeg'
+    }
+    else {
+        image = req.file.path
     }
     const user = req.user._id
     Place.create({address, description, price, rate, latitude, longitude, authorId: user, image: image})
@@ -51,12 +54,13 @@ router.post("/places/add", uploader.single("image"), (req, res, next) => {
         })
 })
 
-router.get("/places/:id", (req, res, next) => {
-    let dynamicPlacesId = req.params.id
-    let profilePic = "images/default-avatar.png"
+router.get("/places/:placeId", (req, res, next) => {
+    let dynamicPlacesId = req.params.placeId
+    let profilePic = "/images/default-avatar.png"
     if (req.app.locals.isLoggedIn) {
        profilePic = req.user.profilePic
     }
+    console.log(dynamicPlacesId)
     Place.findById(dynamicPlacesId)
         .then((place) => {
             res.render("places/details.hbs", {place: place, ratingStars: "★".repeat(place.rate) + "☆".repeat(5-place.rate), profilePic})
@@ -66,22 +70,24 @@ router.get("/places/:id", (req, res, next) => {
         })
 })
 
-
-router.post("/review", (req, res, next) => {
+router.post("/places/:placeId/review", (req, res, next) => {
+    const placeId = req.params.placeId //this gets the dynamically id after the :
     const {rate, date, comment} = req.body
     const user = req.user._id
 
 Review.create({rate, date, comment, userId: user})
     .then((review)=> {
-        return User.findByIdAndUpdate({_id: user}, { $push: { reviewsAdded: review._id }})
-    })
-    .then(() => {
-        res.redirect("/map")
+        return Place.findByIdAndUpdate({_id: placeId}, { $push: { reviews: review._id}})})
+    .then((placeUpdated) => {
+         User.findByIdAndUpdate({_id: user}, { $push: { placesVisited: placeUpdated._id }})
+         .then(() => {
+            res.redirect("/map")
+         })
     })
     .catch((err)=>{
         console.log(err)
      })
-
+})
 // WE TRIED THIS BUT ITS NOT WORKING
 // router.post("/places/:placeId/review", (req, res, next) => {
 //     const {placeId} = req.params
@@ -104,6 +110,6 @@ Review.create({rate, date, comment, userId: user})
 //         .catch((err)=>{
 //             console.log(err)
 //         })
-})
+
 
 module.exports = router;
