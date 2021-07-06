@@ -24,7 +24,8 @@ require("./config")(app);
 
 // app.locals.title = `${capitalized(projectName)} created with IronLauncher`;
 
-hbs.registerHelper('hasPicture', function (options) { return req.app.locals.profilePic === "images/default-avatar.png"});
+//we don't need this anymore, but I left it here so we know we can use helpers in hbs. 
+// hbs.registerHelper('hasPicture', function (options) { return req.app.locals.profilePic === "images/default-avatar.png"});
 
 const session = require('express-session');
 const MongoStore = require('connect-mongo');

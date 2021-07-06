@@ -4,6 +4,7 @@
 const router = require("express").Router();
 const Place = require("../models/Place.model")
 const User = require("../models/User.model")
+const uploader = require('../config/cloudinary.config.js');
 
 router.get("/map", async (req, res, next) => {
     // Sending some data to the hbs page
@@ -14,7 +15,8 @@ router.get("/map", async (req, res, next) => {
         "places/map.hbs", 
         {
             title: "Places", 
-            loc: JSON.stringify(loc)
+            loc: JSON.stringify(loc), 
+            profilePic: req.user.profilePic
         }
     )
 })
@@ -24,12 +26,23 @@ router.get("/places", async (req, res, next) => {
     res.json({places})
 });
 
-router.post("/places/add", (req, res, next) => {
-    const {address, description, price, rate, latitude, longitude} = req.body
+router.post("/places/add", uploader.single("image"), (req, res, next) => {
+        // // the uploader.single() callback will send the file to cloudinary and get you and obj with the url in return
+        // console.log('file is: ', req.file)
+        // if (!req.file) {
+        //   console.log("there was an error uploading the file")
+        //   next(new Error('No file uploaded!'));
+        //   return;
+        // }
+        
+    const {address, description, price, rate, latitude, longitude,} = req.body
+    const image = req.file.path
+    if (!req.file.path){
+        image = '/images/default-image.jpeg'
+    }
     const user = req.user._id
-    Place.create({address, description, price, rate, latitude, longitude, authorId: user})
+    Place.create({address, description, price, rate, latitude, longitude, authorId: user, image: image})
     .then((place) => {
-        console.log(place)
         return User.findByIdAndUpdate({_id: user}, { $push: { placesAdded: place._id } })
         })
         .then(()=>{
@@ -44,10 +57,13 @@ router.post("/places/add", (req, res, next) => {
 
 router.get("/places/:id", (req, res, next) => {
     let dynamicPlacesId = req.params.id
-
+    let profilePic = "images/default-avatar.png"
+    if (req.app.locals.isLoggedIn) {
+       profilePic = req.user.profilePic
+    }
     Place.findById(dynamicPlacesId)
         .then((place) => {
-            res.render("places/details.hbs", {place: place, ratingStars: "★".repeat(place.rate) + "☆".repeat(5-place.rate)})
+            res.render("places/details.hbs", {place: place, ratingStars: "★".repeat(place.rate) + "☆".repeat(5-place.rate), profilePic})
         })
         .catch((err)=>{
             next(err)
