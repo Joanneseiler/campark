@@ -12,13 +12,13 @@ router.get('/profile', (req, res, next) => {
         res.redirect('/signin'); // can't access the page, so go and log in
         return;
       }
-      // // ok, req.user is defined
-      // req.app.locals.isLoggedIn = true;
+      // ok, req.user is defined
+      req.app.locals.isLoggedIn = true;
     User.findOne({_id: req.user._id})
     .populate("placesAdded")
-    .populate("reviewsAdded")
+    .populate("placesVisited")
     .then((user) => {
-      res.render('user/profile', {title: req.user.username, username: req.user.username, country: req.user.country, profilePic: req.user.profilePic, placesAdded: user.placesAdded, placesVisited: user.reviewsAdded});
+      res.render('user/profile', {title: req.user.username, username: req.user.username, country: req.user.country, profilePic: req.user.profilePic, placesAdded: user.placesAdded, placesVisited: user.placesVisited});
     })
     .catch((err) => {
       next(err)

@@ -16,8 +16,12 @@ const reviewSchema = new Schema({
         type: String,
         required: true,
   },
-  userId : {
+  userId: {
     ref: "user",
+    type: Schema.Types.ObjectId
+  }, 
+  placeId : {
+    ref: "place",
     type: Schema.Types.ObjectId
   }
   });

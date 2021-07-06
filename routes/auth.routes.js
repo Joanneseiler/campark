@@ -56,7 +56,6 @@ const hash = bcrypt.hashSync(password, salt);
                         }
                    
                         // All good, we are now logged in and `req.user` is now set
-                        console.log('req user ' + req.user)
                         req.app.locals.isLoggedIn = true;
                         return res.redirect('/profile')
                       });
@@ -108,9 +107,16 @@ router.get('/auth/google',
  
 router.get('/auth/google/callback', (req, res, next) =>
   passport.authenticate('google', (err, user, info) => {
-    if (err) return next(err);
+    if (err) {
+      return next(err)
+    }
 
-    if  (!user) return res.redirect('/signup');
+
+    if  (!user) {
+      console.log("user not existent")
+      return res.redirect('/signup')
+    }
+    // req.session.user = user
     req.app.locals.isLoggedIn = true;
     return res.redirect('/profile');
 
