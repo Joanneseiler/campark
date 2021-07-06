@@ -1,11 +1,11 @@
 <div id="test"></div>
-<img src="{{image}}" alt="">
+<img src="{{profilePic}}" alt="">
 <h6>{{username}}</h6>
 <p>{{country}}</p>
 
 <h6> <span>{{placesAdded.length}}</span> Places added</h6>
 {{#each placesAdded}}
-<img src="this.image" alt="">
+<img src="{{this.image}}" alt="">
 <p>{{this.address}}</p>
 {{/each}}
 

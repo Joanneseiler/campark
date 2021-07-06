@@ -4,6 +4,7 @@ const Places = require('../models/Place.model');
 const Reviews = require('../models/Review.model');
 const Place = require('../models/Place.model');
 const bcrypt = require('bcryptjs');
+const uploader = require('../config/cloudinary.config.js');
 
 router.get('/profile', (req, res, next) => {
     if (!req.user) {
@@ -11,13 +12,13 @@ router.get('/profile', (req, res, next) => {
         res.redirect('/signin'); // can't access the page, so go and log in
         return;
       }
-      // ok, req.user is defined
-      req.app.locals.isLoggedIn = true;
+      // // ok, req.user is defined
+      // req.app.locals.isLoggedIn = true;
     User.findOne({_id: req.user._id})
     .populate("placesAdded")
     .populate("reviewsAdded")
     .then((user) => {
-      res.render('user/profile', {title: req.user.username, username: req.user.username, country: req.user.country, image: req.user.profilePic, placesAdded: user.placesAdded, placesVisited: user.reviewsAdded});
+      res.render('user/profile', {title: req.user.username, username: req.user.username, country: req.user.country, profilePic: req.user.profilePic, placesAdded: user.placesAdded, placesVisited: user.reviewsAdded});
     })
     .catch((err) => {
       next(err)
@@ -32,8 +33,16 @@ router.get('/account', (req, res, next) => {
   res.render('user/account.hbs', {title: `${req.user.username}'s account`, username: req.user.username, email: req.user.email, country: req.user.country, profilePic: req.user.profilePic})
 })
 
-router.post('/account/edit', (req, res, next) => {
-  let { profilePic, username, email, country, password, confirmPassword } = req.body
+router.post('/account/edit', uploader.single("profilePic"), (req, res, next) => {
+// the uploader.single() callback will send the file to cloudinary and get you and obj with the url in return
+console.log('file is: ', req.file)
+if (!req.file) {
+  console.log("there was an error uploading the file")
+  next(new Error('No file uploaded!'));
+  return;
+}
+  let { username, email, country, password, confirmPassword } = req.body
+  let profilePic = req.file.path
   if ( !username || !email || !country || !password || !confirmPassword ) { 
     res.render('auth/signup.hbs', {error: 'Please enter all fields'})
     return
@@ -63,10 +72,8 @@ const hash = bcrypt.hashSync(password, salt);
   let userId = req.user._id
   if (profilePic === "") {
     profilePic = "images/default-avatar.png"
-  } else {
-    req.app.locals.profilePic = profilePic
-  }
-
+  } 
+  
   if(username === req.user.username ) {
     User.findByIdAndUpdate({_id: userId}, {profilePic, username, email, country, password:hash}, {new: true})
     .then((userUpdated) => {

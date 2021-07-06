@@ -17,7 +17,7 @@ router.get('/signin', (req, res, next) => {
 router.post('/signup', (req, res, next) => {
 const { username, email, country, password, confirmPassword } = req.body
 if ( !username || !email || !country || !password || !confirmPassword ) { 
-    res.render('auth/signup.hbs', {error: 'Please enter all fields'})
+    res.render('auth/signup.hbs', {error: 'Please enter all fields', username, email, country, password, confirmPassword})
     return
 }
 
@@ -58,7 +58,6 @@ const hash = bcrypt.hashSync(password, salt);
                         // All good, we are now logged in and `req.user` is now set
                         console.log('req user ' + req.user)
                         req.app.locals.isLoggedIn = true;
-                        req.app.locals.profilePic = req.user.profilePic
                         return res.redirect('/profile')
                       });
                     })(req, res, next);                   
@@ -122,7 +121,6 @@ router.get('/logout', (req, res, next) => {
     req.logout();
     req.session.destroy()
     req.app.locals.isLoggedIn = false;
-    req.app.locals.profilePic = 'images/default-avatar.png'
     res.redirect('/');
  
 })
