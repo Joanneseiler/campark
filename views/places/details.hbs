@@ -1,51 +1,62 @@
-<div id="details-page">
-    <div id="places-info">
-        <div id ="places-image">
-            <img src={{place.image}} alt="Picture of the place">
-        </div>
-        <div id="place-details">
-            <p>{{place.description}}</p>
-            <p>{{place.address}}</p>
-            <p>$ {{place.price}}</p>
-            <p>{{ratingStars}}</p>
-        </div>
-        <div>
-            <p>{{place.reviews}}</p>
-        </div> 
-    </div>
-    <div id="mini-map"></div>
-    <script>
-        const map = L.map('mini-map').setView([{{place.latitude}}, {{place.longitude}}], 13);
-
-        L.tileLayer.provider('CartoDB.Positron').addTo(map);
-
-        const icon = L.icon({
-            iconUrl: '/images/marker.png',
-            iconSize:     [30, 27], // size of the icon
-            iconAnchor:   [28, 27], // point of the icon which will correspond to marker's location
-            popupAnchor:  [0, 0] // point from which the popup should open relative to the iconAnchor
-        })
-
-        L.marker([{{place.latitude}}, {{place.longitude}}], {icon: icon})
-            .addTo(map)
-            .bindPopup('Here is your parking spot.')
-    </script>
-    <div id="review">
-        <form action="/review" method="POST">
-            <textarea minlength="20" maxlength="200" name="comment">Have you already parked in this place? Please leave a review and help other travelers.</textarea>
-            <div class="rate">
-                <input type="radio" id="star5" name="rate" value="5" />
-                <label for="star5" title="text">5 stars</label>
-                <input type="radio" id="star4" name="rate" value="4" />
-                <label for="star4" title="text">4 stars</label>
-                <input type="radio" id="star3" name="rate" value="3" />
-                <label for="star3" title="text">3 stars</label>
-                <input type="radio" id="star2" name="rate" value="2" />
-                <label for="star2" title="text">2 stars</label>
-                <input type="radio" id="star1" name="rate" value="1" />
-                <label for="star1" title="text">1 star</label>
+<div class="horizontally-centered">
+    <div id="details-page">
+        <div id="left-side">
+            <div id="places-info">
+                <div id ="places-image">
+                    <img src={{place.image}} alt="Picture of the place">
+                </div>
+                <div class="details-divider"></div>
+                <div id="place-details">
+                    <p id="details-description">"{{place.description}}"</p>
+                    <p id="details-address">{{place.address}}</p>
+                    <div id="details-misc">
+                        <p>$ {{place.price}}</p>
+                        <p>{{ratingStars}}</p>
+                    </div>
+                </div>
+                <div class="details-divider"></div>
+                <div>
+                    <p>{{place.reviews}}</p>
+                </div> 
             </div>
-            <button type="submit">SUBMIT</button>
-        </form>
+            <div id="mini-map"></div>
+        </div>
+        <div id="review">
+            <form action="/review" method="POST">
+                <h3>Description</h3>
+                <textarea minlength="20" maxlength="200" name="comment" placeholder="Please leave a review and help other travelers."></textarea>
+                <h3>Rating</h3>
+                <div class="rate">
+                    <input type="radio" id="star5" name="rate" value="5" />
+                    <label for="star5" title="text">5 stars</label>
+                    <input type="radio" id="star4" name="rate" value="4" />
+                    <label for="star4" title="text">4 stars</label>
+                    <input type="radio" id="star3" name="rate" value="3" />
+                    <label for="star3" title="text">3 stars</label>
+                    <input type="radio" id="star2" name="rate" value="2" />
+                    <label for="star2" title="text">2 stars</label>
+                    <input type="radio" id="star1" name="rate" value="1" />
+                    <label for="star1" title="text">1 star</label>
+                </div>
+                <button type="submit">SUBMIT</button>
+            </form>
+        </div>
     </div>
 </div>
+
+<script>
+    const map = L.map('mini-map').setView([{{place.latitude}}, {{place.longitude}}], 13);
+
+    L.tileLayer.provider('CartoDB.Positron').addTo(map);
+
+    const icon = L.icon({
+        iconUrl: '/images/marker.png',
+        iconSize:     [30, 27], // size of the icon
+        iconAnchor:   [28, 27], // point of the icon which will correspond to marker's location
+        popupAnchor:  [0, 0] // point from which the popup should open relative to the iconAnchor
+    })
+
+    L.marker([{{place.latitude}}, {{place.longitude}}], {icon: icon})
+        .addTo(map)
+        .bindPopup('Here is your parking spot.')
+</script>

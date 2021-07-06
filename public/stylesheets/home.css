@@ -7,14 +7,6 @@
     border-bottom-right-radius: 0;
 }
 
-.home-centered {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-}
-
 .home-position {
     display: flex;
     flex-direction: row;
