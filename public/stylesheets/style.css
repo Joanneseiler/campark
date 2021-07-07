@@ -302,25 +302,17 @@ div.google {
 }
 
 .navbar {
-  background-color: #232527 !important;
+  background-color: #1A2F3D !important;
   height: 60px;
   box-shadow: 0px 5px 5px #757575;
+  padding: 0 8px;
 }
 
 .navbar-nav {
   margin: 0 !important;
   display: flex !important;
-  justify-content: center !important;
+  justify-content: space-evenly !important;
   width: 100%
-}
-
-
-.container-fluid {
-  display: flex;
-  justify-content: space-between;
-  flex-direction: row;
-  align-items: center;
-
 }
 
 .nav-link {
@@ -333,7 +325,7 @@ div.google {
 }
 
 .navbar-brand {
-  margin-left: 80px
+  margin-left: 8px;
 }
 
 .nav-item {
@@ -373,11 +365,11 @@ div.google {
   color: #484848 !important
 }
 
-.dropdown {
-  margin-right: 80px
-}
-
 /* profile page */
+
+#profile-box a {
+  text-decoration: none;
+}
 
 #profile-info {
   display: flex;
@@ -443,18 +435,17 @@ div.google {
 }
 
 .place-details-box {
-  display: flex;
-  flex-direction: row;
+  display: block;
 }
 
 .place-details-item {
-  display: flex;
+  display: inline-flex;
   flex-direction: column;
   margin-right: 20px
 }
 
 #profile-box {
-  display: flex;
+  display: inline-flex;
   flex-direction: column;
 }
 
@@ -465,6 +456,10 @@ div.google {
 
 /* ACCOUNT */
 
+
+#edit-title-header {
+  margin-bottom: 40px;
+}
 
 #edit-profile-form {
   background-color: transparent;
@@ -482,8 +477,8 @@ div.google {
   color: #1A2F3D;
   border: 1px solid #1A2F3D;
   font-size: 14px;
-  margin-top: 50px;
-  width: 600px;
+  margin: 50px 0;
+  width: 60%;
 }
 
 #btn-delete:hover {

@@ -6,8 +6,8 @@ const uploader = require('../config/cloudinary.config.js');
 
 router.get("/map", async (req, res, next) => {
     // Sending some data to the hbs page
-    let loc = [54.80549559002091, 9.4120769896646]
-    let zoomLevel = 6
+    let loc = [50.45458412526528, 10.98668760118]
+    let zoomLevel = 5
     //Always stringify data that the scripts might use in your hbs file
     if (req.query.lon !== undefined && req.query.lat !== undefined) {
         loc = [parseFloat(req.query.lat), parseFloat(req.query.lon)]
@@ -49,14 +49,15 @@ router.post("/places/add", uploader.single("image"), (req, res, next) => {
     const user = req.user._id
     Place.create({address, description, price, rate, latitude, longitude, authorId: user, image: image})
     .then((place) => {
-        return User.findByIdAndUpdate({_id: user}, { $push: { placesAdded: place._id } })
-        })
-        .then(()=>{
-            res.redirect("/map")
-        })
-        .catch((err)=>{
-            next(err)
-        })
+        User.findByIdAndUpdate({_id: user}, { $push: { placesAdded: place._id } })
+        return place;
+    })
+    .then((place)=>{
+        res.redirect(`/map?lon=${place.longitude}&lat=${place.latitude}`)
+    })
+    .catch((err)=>{
+        next(err)
+    })
 })
 
 router.get("/places/:placeId", (req, res, next) => {
@@ -67,6 +68,7 @@ router.get("/places/:placeId", (req, res, next) => {
     }
     console.log(dynamicPlacesId)
     Place.findById(dynamicPlacesId)
+        .populate('reviews')
         .then((place) => {
             res.render("places/details.hbs", {place: place, ratingStars: "★".repeat(place.rate) + "☆".repeat(5-place.rate), profilePic})
         })
@@ -80,18 +82,19 @@ router.post("/places/:placeId/review", (req, res, next) => {
     const {rate, date, comment} = req.body
     const user = req.user._id
 
-Review.create({rate, date, comment, userId: user})
+    Review.create({rate, date, comment, userId: user})
     .then((review)=> {
-        return Place.findByIdAndUpdate({_id: placeId}, { $push: { reviews: review._id}})})
+        return Place.findByIdAndUpdate({_id: placeId}, { $push: { reviews: review._id}})
+    })
     .then((placeUpdated) => {
          User.findByIdAndUpdate({_id: user}, { $push: { placesVisited: placeUpdated._id }})
          .then(() => {
-            res.redirect("/map")
+            res.redirect(`/places/${placeId}`)
          })
     })
     .catch((err)=>{
         console.log(err)
-     })
+    })
 })
 
 module.exports = router;

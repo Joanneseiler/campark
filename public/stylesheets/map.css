@@ -127,3 +127,36 @@
 .rate:not(:checked) > label:hover ~ label {
   color: #1A2F3D;  
 }
+
+.custom-place-details-popup-content {
+  width: 200px;
+}
+
+.custom-place-details-popup-content #details-price {
+  font-size: 14px;
+  margin: 8px 0;
+}
+
+.custom-place-details-popup-content #details-rate {
+  margin: 8px 0 16px 0;
+}
+
+.custom-place-details-popup-content #details-price.paid { 
+  color: red;
+}
+
+.custom-place-details-popup-content #details-price.free { 
+  color: green;
+}
+
+.custom-place-details-popup-content .details-image-container {
+  width: 100%;
+  margin-right: 24px;
+  margin-bottom: 16px;
+}
+
+.custom-place-details-popup-content .details-image-container img {
+  border-radius: 16px;
+  width: 100%;
+  height: 100%;
+}

@@ -2,6 +2,7 @@
     display: flex;
     align-items: center;
     flex-direction: column;
+    margin: 0 24px;
   }
 
 #details-page {
@@ -55,19 +56,25 @@
     width: 100%;
   }
 
-  /* #review button[type="submit"]:hover {
-    color: white;
-  } */
+  #review {
+    width: 440px;
+    margin-left: 128px;
+    padding-left: 48px;
+    font-size: 16px;
+    border-left: 1px solid rgba(0, 0, 0, 0.56);
+    border-radius: 0;
+  }
+
+  #review #existing-reviews {
+    margin-top: 32px;
+    color: rgba(0, 0, 0, 0.56);
+  }
 
   #review form {
-      width: 440px;
+      width: 100%;
+      padding: 0;
       background: none;
       align-items: flex-start;
-      font-size: 16px;
-      border-left: 1px solid rgba(0, 0, 0, 0.56);
-      border-radius: 0;
-      margin-left: 128px;
-      padding-left: 128px;
   }
 
   #review h3 {

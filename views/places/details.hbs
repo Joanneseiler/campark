@@ -15,9 +15,6 @@
                     </div>
                 </div>
                 <div class="details-divider"></div>
-                <div>
-                    <p>{{place.reviews}}</p>
-                </div> 
             </div>
             <div id="mini-map"></div>
         </div>
@@ -40,6 +37,13 @@
                 </div>
                 <button type="submit">SUBMIT</button>
             </form>
+            <div class="details-divider"></div>
+            <div id="existing-reviews">
+            {{#each place.reviews}}
+                "{{this.comment}}"<br><br>
+                {{this.date}}
+            {{/each}}
+            </div>
         </div>
     </div>
 </div>

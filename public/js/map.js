@@ -62,7 +62,7 @@
     }
 
     function getHTMLPlaceDetailsPopupContent(place) {
-        let popupContent = document.querySelector('.custom-place-details-popup-content').cloneNode(true)
+        let popupContent = document.querySelector('.custom-place-details-popup-content.hidden').cloneNode(true)
         let newlineSplit = place.address.split('\n')
         let cityLine = newlineSplit[1]
         let spaceSplit = cityLine.split(' ')
@@ -75,8 +75,9 @@
         detailAddress = detailAddress.replaceAll('\r\n', '<br>') // "neue Zeile" mit "HTML Umbruch" tauschen 
         // \r\n' damit es für alle Betriebssysteme geht
         popupContent.querySelector('#details-address').innerHTML = detailAddress
-        //popupContent.querySelector('#details-description').innerHTML = place.description
-        //popupContent.querySelector('#details-price').innerHTML = place.price
+        popupContent.querySelector('#details-image').src = place.image
+        popupContent.querySelector('#details-price').innerHTML = place.price
+        popupContent.querySelector('#details-price').classList.add(place.price)
         popupContent.querySelector('#details-rate').innerHTML = "★".repeat(place.rate) + "☆".repeat(5-place.rate)
         popupContent.querySelector('#details-link').href = `places/${place._id}`
         popupContent.classList.remove('hidden')
