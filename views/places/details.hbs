@@ -2,7 +2,7 @@
     <div id="details-page">
         <div id="left-side">
             <div id="places-info">
-                <div id ="places-image">
+                <div id="places-image">
                     <img src={{place.image}} alt="Picture of the place">
                 </div>
                 <div class="details-divider"></div>
@@ -16,15 +16,23 @@
                 </div>
                 <div class="details-divider"></div>
                 <div>
-                    <p>{{place.reviews}}</p>
-                </div> 
+                    {{#each place.reviews}}
+                    <div class="place-reviews">
+                        <p>{{this.userId.username}}</p>
+                        <p>{{this.date}}</p>
+                        <p>{{this.rate}}</p>
+                        <p>{{this.comment}}</p>
+                    </div>
+                    {{/each}}
+                </div>
             </div>
             <div id="mini-map"></div>
         </div>
         <div id="review">
             <form action="/places/{{place._id}}/review" method="POST">
                 <h3>Description</h3>
-                <textarea minlength="20" maxlength="200" name="comment" placeholder="Please leave a review and help other travelers."></textarea>
+                <textarea minlength="20" maxlength="200" name="comment"
+                    placeholder="Please leave a review and help other travelers."></textarea>
                 <h3>Rating</h3>
                 <div class="rate">
                     <input type="radio" id="star5" name="rate" value="5" />
@@ -45,18 +53,18 @@
 </div>
 
 <script>
-    const map = L.map('mini-map').setView([{{place.latitude}}, {{place.longitude}}], 13);
+    const map = L.map('mini-map').setView([{{ place.latitude }}, { { place.longitude } }], 13);
 
     L.tileLayer.provider('CartoDB.Positron').addTo(map);
 
     const icon = L.icon({
         iconUrl: '/images/marker.png',
-        iconSize:     [30, 27], // size of the icon
-        iconAnchor:   [28, 27], // point of the icon which will correspond to marker's location
-        popupAnchor:  [0, 0] // point from which the popup should open relative to the iconAnchor
+        iconSize: [30, 27], // size of the icon
+        iconAnchor: [28, 27], // point of the icon which will correspond to marker's location
+        popupAnchor: [0, 0] // point from which the popup should open relative to the iconAnchor
     })
 
-    L.marker([{{place.latitude}}, {{place.longitude}}], {icon: icon})
+    L.marker([{{ place.latitude }}, {{ place.longitude }}], { icon: icon })
         .addTo(map)
         .bindPopup('Here is your parking spot.')
 </script>

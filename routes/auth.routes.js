@@ -126,11 +126,11 @@ router.get('/auth/google/callback', (req, res, next) => //this page will redirec
 );
 
 router.get('/logout', (req, res, next) => {
+  req.session.destroy(function(e){
     req.logout();
-    req.session.destroy()
     req.app.locals.isLoggedIn = false;
     res.redirect('/');
- 
+  }); 
 })
 
 module.exports = router;

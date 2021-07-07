@@ -15,11 +15,11 @@
         <h2>Price</h2>
         <div class="radio-group">
             <div>
-                <input type="radio" id="free" name="price" value="free"/>
+                <input type="radio" id="free" name="price" value="free" />
                 <label for="html">Free</label>
             </div>
             <div>
-                <input type="radio" id="paid" name="price" value="paid"/>
+                <input type="radio" id="paid" name="price" value="paid" />
                 <label for="css">Paid</label>
             </div>
         </div>
@@ -54,3 +54,7 @@
         <a id="details-link"><button id="details-button">DETAILS</button></a>
     </div>
 </div>
+
+{{#if error}}
+<p class="error">{{error}}</p>
+{{/if}}

@@ -38,7 +38,10 @@ const placeSchema = new Schema({
     },
     reviews: [{ 
         type: Schema.Types.ObjectId, 
-        ref: "review" }]
+        ref: "review" }],
+    placeId: { 
+        ref: "place",
+        type: Schema.Types.ObjectId}
 });
 
 const Place = model("place", placeSchema);
