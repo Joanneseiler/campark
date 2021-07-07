@@ -10,7 +10,7 @@ window.addEventListener('load', () => {
             input.classList.add('searching')
             text = text.toLowerCase();
             // you can also use AJAX requests instead of preloaded data
-            const data = await fetch(`https://nominatim.openstreetmap.org/search.php?city=${text}&format=json&language=en`);
+            const data = await fetch(`https://nominatim.openstreetmap.org/search.php?city=${text}&format=json&accept-language=en`);
             const cities = await data.json()
             const suggestions = cities.map(city => ({label: city.display_name, value: {lon: city.lon, lat: city.lat}}))
             input.classList.remove('searching')
