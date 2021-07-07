@@ -50,31 +50,34 @@
                <li class="nav-item">
                   <a class="nav-link item" id="places" href="/map">FIND A PLACE</a>
                </li>
-               {{/if}}
-               <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                     data-bs-toggle="dropdown" aria-expanded="false">
-                     <div class="user-nav" id="user-nav-circle">
-                        <i class="fas fa-bars"></i>
-                        {{#if isLoggedIn}}
-                        <img src="{{profilePic}}" alt="" width="15px" style="border-radius: 50%">
-                        {{else}}
-                        <i class="fas fa-user" style="font-size: 20px"></i>
-                        {{/if}}
-                     </div>
-                  </a>
-                  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                     {{#if isLoggedIn}}
-                     <li><a class="dropdown-item" href="/account">Account</a></li>
-                     <li><a class="dropdown-item" href="/logout">Logout</a></li>
-                     {{else}}
-                     <li><a class="dropdown-item" id="navSignUp" href="/signup">Sign up</a></li>
-                     <li><a class="dropdown-item" hid="navSignIn" href="/signin">Sign in</a></li>
-                     {{/if}}
-                  </ul>
-               </li>
+
             </ul>
+
+
          </div>
+         {{/if}}
+         <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+               aria-expanded="false">
+               <div class="user-nav" id="user-nav-circle">
+                  <i class="fas fa-bars"></i>
+                  {{#if isLoggedIn}}
+                  <img src="{{profilePic}}" alt="" width="15px" style="border-radius: 50%">
+                  {{else}}
+                  <i class="fas fa-user" style="font-size: 20px"></i>
+                  {{/if}}
+               </div>
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+               {{#if isLoggedIn}}
+               <li><a class="dropdown-item" href="/account">Account</a></li>
+               <li><a class="dropdown-item" href="/logout">Logout</a></li>
+               {{else}}
+               <li><a class="dropdown-item" id="navSignUp" href="/signup">Sign up</a></li>
+               <li><a class="dropdown-item" hid="navSignIn" href="/signin">Sign in</a></li>
+               {{/if}}
+            </ul>
+         </li>
       </div>
    </nav>
 

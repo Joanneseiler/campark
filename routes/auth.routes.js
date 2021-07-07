@@ -79,6 +79,7 @@ router.post('/signin', (req, res, next) => {
       }
    
       if (!theUser) {
+        /////É AQUI O ERRO DE NÃO APARECEER O ERRO NA TELA (ver no github)
         console.log(failureDetails.message)
         // Unauthorized, `failureDetails` contains the error messages from our logic in "LocalStrategy" {message: '…'}.
         return res.render('auth/signin.hbs', {title:'sign in or sign up', error: failureDetails.message });
@@ -102,7 +103,8 @@ router.post('/signin', (req, res, next) => {
 
 router.get('/auth/google',
   passport.authenticate('google', { scope:
-  	[ 'email', 'profile' ] }
+  	[ 'email', 'profile' ] 
+  }
 ));
  
 router.get('/auth/google/callback', (req, res, next) =>
@@ -111,12 +113,11 @@ router.get('/auth/google/callback', (req, res, next) =>
       return next(err)
     }
 
-
     if  (!user) {
       console.log("user not existent")
       return res.redirect('/signup')
     }
-    // req.session.user = user
+
     req.app.locals.isLoggedIn = true;
     return res.redirect('/profile');
 

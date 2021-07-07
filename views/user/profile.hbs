@@ -1,16 +1,48 @@
-<div id="test"></div>
-<img src="{{profilePic}}" alt="">
-<h6>{{username}}</h6>
-<p>{{country}}</p>
+<div id="profile-box">
+    <div id="profile-info">
+        <img id="profile-img" src="{{profilePic}}" alt="">
+        <h6 id="profile-username">{{username}}</h6>
+        <p id="profile-country">{{country}}</p>
+    </div>
 
-<h6> <span>{{placesAdded.length}}</span> Places added</h6>
-{{#each placesAdded}}
-<img src="{{this.image}}" alt="">
-<p>{{this.address}}</p>
-{{/each}}
+    <div class="places-info">
+        <div id="places-addded-info">
+            {{#if (listEmpty placesAdded.length)}}
+            <h6 class="place-type"> <span class="num-info">{{placesAdded.length}}</span> Place added
+            </h6>
+            <p class="zero-results-profile">Go to FIND A PLACE and add new spots to help other travelers</p>
+            {{else}}
+            <h6 class="place-type"> <span class="num-info">{{placesAdded.length}}</span> Places added
+            </h6>
 
-<h6><span>{{placesVisited.length}}</span> Places visited</h6>
-{{#each placesVisited}}
-<img src="{{this.image}}" alt="">
-<p>{{this.address}}</p>
-{{/each}}
+            <div class="place-details-box">
+                {{#each placesAdded}}
+                <div class="place-details-item">
+
+                    <img src="{{this.image}}" alt="" class="place-img">
+                    <p class="places-address">{{this.address}}</p>
+
+                </div>
+                {{/each}}
+                {{/if}}
+            </div>
+
+            <div id="places-visited-info">
+                {{#if (listEmpty placesVisited.length)}}
+                <h6 class="place-type place-type-visited"> <span class="num-info">{{placesVisited.length}}</span> Place
+                    visited</h6>
+                <p class="zero-results-profile">Add a new review in a place to see here the spots that you visited</p>
+                {{else}}
+                <h6 class="place-type place-type-visited"> <span class="num-info">{{placesVisited.length}}</span> Places
+                    visited</h6>
+                {{#each placesVisited}}
+                <div class="place-details-box">
+                    <div class="place-details-item">
+                        <img src="{{this.image}}" alt="" class="place-img">
+                        <p class="places-address">{{this.address}}</p>
+                    </div>
+                    {{/each}}
+                    {{/if}}
+                </div>
+            </div>
+        </div>
