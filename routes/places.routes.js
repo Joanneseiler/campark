@@ -94,5 +94,4 @@ Review.create({rate, date, comment, userId: user})
      })
 })
 
-
 module.exports = router;

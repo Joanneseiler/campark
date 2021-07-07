@@ -15,7 +15,7 @@ router.get('/signin', (req, res, next) => {
 })
 
 router.post('/signup', (req, res, next) => {
-const { username, email, country, password, confirmPassword } = req.body
+const {profilePic, username, email, country, password, confirmPassword } = req.body
 if ( !username || !email || !country || !password || !confirmPassword ) { 
     res.render('auth/signup.hbs', {error: 'Please enter all fields', username, email, country, password, confirmPassword})
     return
@@ -45,7 +45,7 @@ const hash = bcrypt.hashSync(password, salt);
   User.findOne({ username })
               .then(user => {
                 if (!user) {
-                  User.create({ username, country, email, password: hash })
+                  User.create({ profilePic, username, country, email, password: hash })
                   .then((user) => {
                     passport.authenticate('local', (err, user, failureDetails) => {
                       // save user in session: req.user
@@ -79,10 +79,10 @@ router.post('/signin', (req, res, next) => {
       }
    
       if (!theUser) {
-        /////É AQUI O ERRO DE NÃO APARECEER O ERRO NA TELA (ver no github)
+        console.log('its here')
         console.log(failureDetails.message)
         // Unauthorized, `failureDetails` contains the error messages from our logic in "LocalStrategy" {message: '…'}.
-        return res.render('auth/signin.hbs', {title:'sign in or sign up', error: failureDetails.message });
+        return res.render('auth/signin.hbs', {title:'sign in or sign up', message: failureDetails.message });
       }
    
       // save user in session: req.user

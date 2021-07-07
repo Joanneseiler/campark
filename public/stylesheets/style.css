@@ -44,6 +44,10 @@ p {
   color: #1A2F3D
 }
 
+.overlay-panel p {
+  color: #f2f2f2
+}
+
 span {
   font-size: 12px;
 }
@@ -374,9 +378,6 @@ div.google {
 }
 
 /* profile page */
-
-
-
 
 #profile-info {
   display: flex;

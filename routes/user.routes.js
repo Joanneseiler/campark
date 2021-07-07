@@ -8,7 +8,7 @@ const uploader = require('../config/cloudinary.config.js');
 
 router.get('/profile', (req, res, next) => {
     if (!req.user) {
-        console.log("nao nao")
+        console.log("nao is here")
         res.redirect('/signin'); // can't access the page, so go and log in
         return;
       }
@@ -77,7 +77,6 @@ const hash = bcrypt.hashSync(password, salt);
   if(username === req.user.username ) {
     User.findByIdAndUpdate({_id: userId}, {profilePic, username, email, country, password:hash}, {new: true})
     .then((userUpdated) => {
-      console.log(userUpdated + "1")
       req.session.user = userUpdated
       res.redirect('/profile')
     })
@@ -90,7 +89,6 @@ const hash = bcrypt.hashSync(password, salt);
       if(!user){
         User.findByIdAndUpdate({_id: userId}, {profilePic, username, email, country, password:hash}, {new: true})
         .then((userUpdated) => {
-          console.log(userUpdated + "2")
           req.session.user = userUpdated
           res.redirect('/profile')
         })

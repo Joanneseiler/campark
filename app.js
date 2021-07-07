@@ -24,7 +24,12 @@ require("./config")(app);
 
 // app.locals.title = `${capitalized(projectName)} created with IronLauncher`;
 
+
+//registering Helpers
 hbs.registerHelper('listEmpty', function (list) { return list === 0});
+
+//registering Partials
+hbs.registerPartials(__dirname + '/views/partials')
 
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
@@ -54,6 +59,7 @@ passport.use(
       User.findOne({ username })
         .then(user => {
           if (!user) {
+            console.log("it's going here")
             return done(null, false, { message: 'Incorrect username' });
           }
  
