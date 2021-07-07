@@ -4,6 +4,9 @@
     background-size: 24px;
     padding-left: 48px;
     background-color: white;
+    border-radius: 20px;
+    margin-bottom: 60px;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.20);
 }
 
 #searchbar.searching {
@@ -41,18 +44,3 @@
     color: #1A2F3D;
     line-height: 32px;
  }
- 
-#places-button {
-    white-space: nowrap;
-    width: 100%;
-    background-color: white;
-    color: rgba(0, 0, 0, 0.50);
-    border-radius: 20px;
-    margin-bottom: 60px;
-    font-size: 16px;
-    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.20);
-}
-
-#places-button:hover {
-    color:white;
-}
