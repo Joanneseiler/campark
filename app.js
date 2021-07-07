@@ -59,7 +59,6 @@ passport.use(
       User.findOne({ username })
         .then(user => {
           if (!user) {
-            console.log("it's going here")
             return done(null, false, { message: 'Incorrect username' });
           }
  
@@ -84,24 +83,27 @@ if (process.env.CLIENT_ID && process.env.CLIENT_SECRET) {
           },
           (accessToken, refreshToken, profile, done) => {
             // to see the structure of the data in received response:
-            console.log("Google account details:", profile);
+            console.log("Google account details here:", profile); //tha data that we want to access is in profile._json
        
-            User.findOne({ googleID: profile.id })
-              .then(user => {
-                if (user) {
+            User.findOne({ googleID: profile.id}) //Since we only want one user record no matter how many times the user signs in, first our app needs to check whether our database already has this user with the given Google profile ID.
+             
+            .then(user => {
+                if (user) {//if we already have a record with the given profile ID
    
-                  done(null, user);
+                  done(null, user); //done function: this is called to tell passport that we have finished looking up or creating a user and it should now proceed with the authentication flow.
                   return;
                 }
-       
-                User.create({ googleID: profile.id })
+                //if the user doesn't exist yet, create a new user:
+                User.create({ googleID: profile.id, username: profile._json.name, profilePic: profile._json.picture, email: profile._json.email})
                   .then(newUser => {
-
                     done(null, newUser);
                   })
                   .catch(err => done(err)); // closes User.create()
               })
-              .catch(err => done(err)); // closes User.findOne()
+              .catch(err => {
+                console.log('see hereeeeeee')
+                done(err)
+              }); // closes User.findOne()
           }
         )
     );

@@ -102,22 +102,23 @@ router.post('/signin', (req, res, next) => {
 
 
 router.get('/auth/google',
-  passport.authenticate('google', { scope:
-  	[ 'email', 'profile' ] 
+  passport.authenticate('google', { scope: //scope specifies which user's Google information that we want our app to get access to
+  	[ 'email', 'profile' ]  //we want only email and profile give access to name, photo, and language preference)
   }
 ));
  
-router.get('/auth/google/callback', (req, res, next) =>
+router.get('/auth/google/callback', (req, res, next) => //this page will redirect the user to the redirect URI which we set up (this url needs to be in Google Developers Console)
   passport.authenticate('google', (err, user, info) => {
     if (err) {
       return next(err)
     }
 
-    if  (!user) {
+    if  (!user) { 
       console.log("user not existent")
       return res.redirect('/signup')
     }
-
+    
+    req.session.loggedInUser = user
     req.app.locals.isLoggedIn = true;
     return res.redirect('/profile');
 

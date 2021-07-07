@@ -7,18 +7,20 @@ const bcrypt = require('bcryptjs');
 const uploader = require('../config/cloudinary.config.js');
 
 router.get('/profile', (req, res, next) => {
-    if (!req.user) {
+    if (!req.session.loggedInUser) {
         console.log("nao is here")
         res.redirect('/signin'); // can't access the page, so go and log in
         return;
       }
-      // ok, req.user is defined
+      // When the login operation completes, user will be assigned to req.user. This function is primarily used when users sign up, during which req.login() can be invoked to automatically log in the newly registered user.
       req.app.locals.isLoggedIn = true;
-    User.findOne({_id: req.user._id})
+      let mainUser = req.session.loggedInUser
+      console.log('Mariana-Joanne see here' , mainUser)
+    User.findOne({_id: mainUser._id})
     .populate("placesAdded")
     .populate("placesVisited")
     .then((user) => {
-      res.render('user/profile', {title: req.user.username, username: req.user.username, country: req.user.country, profilePic: req.user.profilePic, placesAdded: user.placesAdded, placesVisited: user.placesVisited});
+      res.render('user/profile', {title: mainUser.username, username: mainUser.username, country: mainUser.country, profilePic: mainUser.profilePic, placesAdded: user.placesAdded, placesVisited: user.placesVisited});
     })
     .catch((err) => {
       next(err)
