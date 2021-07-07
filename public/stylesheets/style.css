@@ -41,7 +41,11 @@ p {
   font-size: 18px;
   letter-spacing: 1.6px;
   margin: 20px 0 30px;
-  color: #f1f1f1
+  color: #1A2F3D
+}
+
+.overlay-panel p {
+  color: #f2f2f2
 }
 
 span {
@@ -375,9 +379,6 @@ div.google {
 
 /* profile page */
 
-
-
-
 #profile-info {
   display: flex;
   flex-direction: column;
@@ -450,11 +451,6 @@ div.google {
   display: flex;
   flex-direction: column;
   margin-right: 20px
-}
-
-#places-info {
-  display: flex;
-  justify-content: flex-start;
 }
 
 #profile-box {
