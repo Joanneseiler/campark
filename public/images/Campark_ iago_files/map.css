@@ -1,0 +1,129 @@
+#mapid { 
+	height: 80%;
+  width: 80%;
+  margin: 0 64px;
+  border-radius: 20px;
+  margin-top: 58px;
+}
+
+.leaflet-popup-close-button {
+  padding: 8px 24px 0 0 !important;
+  color: black !important;
+}
+
+.leaflet-popup-close-button:hover {
+  color: white !important;
+}
+
+.leaflet-popup.popup-add-place .leaflet-popup-content-wrapper {
+  background-color: #C5D1D8;
+  font-family: "Poppins", sans-serif;
+}
+
+.custom-popup-content form {
+  width: 240px;
+  background: none;
+  text-align: left;
+}
+
+.custom-popup-content h1 {
+  margin: 0 0 8px 0;
+  font-size: 14px;
+  font-weight: normal;
+}
+
+.custom-popup-content h2 {
+  margin: 0;
+  font-size: 12px;
+  font-weight: normal;
+}
+
+.custom-popup-content form {
+  font-size: 12px;
+  display: block;
+  padding: 8px 16px;
+}
+
+.custom-popup-content input[type="radio"] {
+  width: auto;
+  display:inline-block;
+}
+
+.custom-popup-content textarea {
+  font-family: "Poppins", sans-serif;
+  outline: none;
+  font-size: 10px; 
+  resize: none;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 4px 4px 4px rgb(0 0 0 / 10%);
+  width: 100%;
+  padding: 8px;
+  margin: 8px 0;
+  color: rgba(0, 0, 0, 0.84)
+}
+
+.custom-popup-content .radio-group label {
+  margin-left: 6px;
+  margin-right: 12px;
+}
+
+.custom-popup-content .radio-group > div {
+  display: flex;
+  align-items: center;
+}
+
+.custom-popup-content input {
+  height: inherit;
+}
+
+.custom-popup-content .radio-group {
+  display: flex;
+  margin: 8px 0 12px 0;
+}
+
+.custom-popup-content button[type="submit"] {
+  margin-top: 16px;
+  border-radius: 16px;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 12px;
+  width: 100%;
+}
+.custom-popup-content button[type="submit"]:hover {
+  color: white;
+}
+
+.hidden {
+  display: none;
+}
+
+.rate {
+  margin: 8px 0;
+  display: flex;
+  flex-flow: row-reverse;
+  justify-content: flex-end;
+}
+.rate:not(:checked) > input {
+  position:absolute;
+  top:-9999px;
+}
+.rate:not(:checked) > label {
+  float:right;
+  width:1em;
+  overflow:hidden;
+  white-space:nowrap;
+  cursor:pointer;
+  font-size:20px;
+  color: rgba(255, 255, 255, 0.5);
+}
+.rate:not(:checked) > label:before {
+  content: '★ ';
+}
+.rate > input:checked ~ label {
+  color: #1A2F3D;    
+}
+.rate:not(:checked) > label:hover,
+.rate:not(:checked) > label:hover ~ label {
+  color: #1A2F3D;  
+}

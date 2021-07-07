@@ -41,7 +41,6 @@ p {
   font-size: 18px;
   letter-spacing: 1.6px;
   margin: 20px 0 30px;
-  color: #f1f1f1
 }
 
 span {
@@ -298,9 +297,9 @@ div.google {
 }
 
 .navbar {
-  background-color: #232527 !important;
+  background-color: #1A2F3D !important;
   height: 60px;
-  box-shadow: 0px 5px 5px #757575;
+  box-shadow: 0px 5px 5px #000000;
 }
 
 .navbar-nav {
@@ -374,131 +373,3 @@ div.google {
 }
 
 /* profile page */
-
-
-
-
-#profile-info {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 5%;
-  margin-top: 150px;
-}
-
-#profile-img {
-  border-radius: 50%;
-  width: 15%;
-  margin: 0 !important;
-  align-self: center;
-}
-
-#profile-username {
-  font-weight: 700;
-  letter-spacing: 0.8px;
-  font-size: 20px;
-  text-align: center;
-  margin: 10px
-}
-
-#profile-country {
-  font-weight: 400;
-  letter-spacing: 1.6px;
-  font-size: 16px;
-  color: #1A2F3D;
-  text-align: center;
-  margin: 0
-}
-
-.num-info {
-  font-weight: 700;
-  letter-spacing: 1.6px;
-  font-size: 18px;
-}
-
-.place-img {
-  width: 200px;
-  height: 150px;
-  border-radius: 10%;
-  overflow: hidden;
-}
-
-.place-type {
-  font-size: 400;
-  letter-spacing: 1.6%;
-  font-size: 18px;
-  margin: 30px 0;
-}
-
-.zero-results-profile {
-  color: #1A2F3D;
-  font-size: 14px;
-  margin: 0
-}
-
-.places-address {
-  color: #1A2F3D;
-  font-size: 12px;
-  width: 200px
-}
-
-.place-details-box {
-  display: flex;
-  flex-direction: row;
-}
-
-.place-details-item {
-  display: flex;
-  flex-direction: column;
-  margin-right: 20px
-}
-
-#places-info {
-  display: flex;
-  justify-content: flex-start;
-}
-
-#profile-box {
-  display: flex;
-  flex-direction: column;
-}
-
-.place-type-visited {
-  margin-top: 50px;
-}
-
-
-/* ACCOUNT */
-
-
-#edit-profile-form {
-  background-color: transparent;
-  display: flex;
-  justify-content: flex-start;
-}
-
-#delete-profile-form {
-  background-color: transparent;
-  padding: 0;
-}
-
-#btn-delete {
-  background-color: transparent !important;
-  color: #1A2F3D;
-  border: 1px solid #1A2F3D;
-  font-size: 14px;
-  margin-top: 50px;
-  width: 600px;
-}
-
-#btn-delete:hover {
-  background: linear-gradient(to bottom right, #1A2F3D, #264255);
-  cursor: pointer;
-  font-size: 16px;
-  color: #F1F1F1
-}
-
-#edit-page {
-  margin-top: 200px;
-  display: flex;
-  flex-direction: column;
-}

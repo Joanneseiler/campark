@@ -24,8 +24,7 @@ require("./config")(app);
 
 // app.locals.title = `${capitalized(projectName)} created with IronLauncher`;
 
-//we don't need this anymore, but I left it here so we know we can use helpers in hbs. 
-// hbs.registerHelper('hasPicture', function (options) { return req.app.locals.profilePic === "images/default-avatar.png"});
+hbs.registerHelper('listEmpty', function (list) { return list === 0});
 
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
@@ -35,6 +34,8 @@ const LocalStrategy = require('passport-local').Strategy;
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 
 const User = require('./models/User.model');
+
+
 
 passport.serializeUser((user, cb) => cb(null, user._id));
  
@@ -73,7 +74,7 @@ if (process.env.CLIENT_ID && process.env.CLIENT_SECRET) {
           {
             clientID: process.env.CLIENT_ID,
             clientSecret: process.env.CLIENT_SECRET,
-            callbackURL: "http://localhost:3000/auth/google/callback",
+            callbackURL: "http://localhost:3000/auth/google/callback"
           },
           (accessToken, refreshToken, profile, done) => {
             // to see the structure of the data in received response:
@@ -119,6 +120,8 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+
+
 // 👇 Start handling routes here
 const homeRoutes = require("./routes/home.routes");
 app.use("/", homeRoutes);
@@ -134,5 +137,6 @@ app.use("/", userRoutes);
 
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app);
+
 
 module.exports = app;

@@ -8,7 +8,7 @@ const uploader = require('../config/cloudinary.config.js');
 
 router.get('/profile', (req, res, next) => {
     if (!req.user) {
-
+        console.log("nao nao")
         res.redirect('/signin'); // can't access the page, so go and log in
         return;
       }
@@ -107,7 +107,10 @@ const hash = bcrypt.hashSync(password, salt);
 router.post('/account/delete', (req, res, next) => {
   User.findOneAndRemove({_id: req.user._id})
   .then(() => {
-   res.redirect('/')
+    req.logout();
+    req.session.destroy()
+    req.app.locals.isLoggedIn = false;
+    res.redirect('/');
   })
   .catch((err) => {
     next(err)
