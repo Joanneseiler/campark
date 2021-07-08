@@ -18,7 +18,7 @@ router.get("/map", async (req, res, next) => {
         {
             title: "Places", 
             loc: JSON.stringify(loc), 
-            profilePic: req.session.loggedInUser != null ? req.session.loggedInUser.profilePic : null,
+            // profilePic: req.session.loggedInUser != null ? req.session.loggedInUser.profilePic : null,
             zoomLevel
         }
     )
@@ -69,10 +69,18 @@ router.post("/places/add", uploader.single("image"), (req, res, next) => {
 
 router.get("/places/:placeId", (req, res, next) => {
     let dynamicPlacesId = req.params.placeId
-    let profilePic = "/images/default-avatar.png"
+    let profilePic = "../images/default-avatar.png"
+    
+
+    //this route it's trying to pick the photo in the folder /places and not in the folder /images. Because of it, I needed to use the ../. I found the solution here but I still without understand why it's happening (https://laracasts.com/discuss/channels/laravel/route-parameters-causing-wrong-urls-for-static-images-and-ajax-requests-l-54)
     if (req.app.locals.isLoggedIn) {
-       profilePic = req.session.loggedInUser.profilePic
+        if(req.session.loggedInUser.profilePic == 'images/default-avatar.png') {
+            profilePic = "../"+req.session.loggedInUser.profilePic
+        } else {
+            profilePic = req.session.loggedInUser.profilePic
+        }
     }
+
     Place.findById(dynamicPlacesId)
         .populate('reviews')
         .then((place) => {
@@ -83,7 +91,7 @@ router.get("/places/:placeId", (req, res, next) => {
                 reviews.forEach((review) => {
                     review.displayedStars = "★".repeat(review.rate) + "☆".repeat(5-review.rate)
                 })
-                res.render("places/details.hbs", {title: "Place details", place: place, ratingStars: "★".repeat(place.rate) + "☆".repeat(5-place.rate), profilePic})
+                res.render("places/details.hbs", {title: "Place details", place: place, ratingStars: "★".repeat(place.rate) + "☆".repeat(5-place.rate), profilePic: profilePic})
             })
         })
         .catch((err)=>{
@@ -112,9 +120,24 @@ router.post("/places/:placeId/review", (req, res, next) => {
         return Place.findByIdAndUpdate({_id: placeId}, { $push: { reviews: review._id}})
     })
     .then((placeUpdated) => {
-         User.findByIdAndUpdate({_id: user}, { $push: { placesVisited: placeUpdated._id}})
-         .then(() => {
-            res.redirect(`/places/${placeId}`)
+         User.findById({_id: user})
+         .then((userUnique) => {
+            let alreadyVisited = false
+            userUnique.placesVisited.forEach((placeReviewed) => {
+  
+                if (placeId == placeReviewed) {
+                    alreadyVisited = true
+                }
+            })
+            if(!alreadyVisited) {  
+              User.findByIdAndUpdate({_id: user}, {$push: {placesVisited: placeUpdated._id}})
+                .then(() => {
+                    res.redirect(`/places/${placeId}`)
+                })
+            }
+            else {
+                res.redirect(`/places/${placeId}`)
+            }
          })
     })
     .catch((err)=>{
@@ -123,3 +146,5 @@ router.post("/places/:placeId/review", (req, res, next) => {
 })
 
 module.exports = router;
+
+

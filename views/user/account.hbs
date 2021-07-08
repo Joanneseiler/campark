@@ -265,7 +265,9 @@
             <input name="confirmPassword" type="password" placeholder="Confirm your password" required>
             <button type="submit">SUBMIT</button>
         </form>
-
+        {{#if error}}
+        <p class="error">{{error}}</p>
+        {{/if}}
         <form action="/account/delete" method="POST" id="delete-profile-form">
             <button id="btn-delete"><i class="fas fa-trash"></i> DELETE YOUR ACCOUNT</button>
         </form>
@@ -273,8 +275,6 @@
 </div>
 
 {{!-- error message --}}
-{{#if error}}
-<p class="error">{{error}}</p>
-{{/if}}
+
 
 <script src="/js/auth.js"></script>
