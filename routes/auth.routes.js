@@ -47,19 +47,9 @@ const hash = bcrypt.hashSync(password, salt);
                 if (!user) {
                   User.create({ profilePic, username, country, email, password: hash })
                   .then((user) => {
-                    passport.authenticate('local', (err, user, failureDetails) => {
-                      // save user in session: req.user
-                      req.login(user, err => {
-                        if (err) {
-                          // Session save went bad
-                          return next(err);
-                        }
-                   
-                        // All good, we are now logged in and `req.user` is now set
-                        req.app.locals.isLoggedIn = true;
-                        return res.redirect('/profile')
-                      });
-                    })(req, res, next);                   
+                    req.session.loggedInUser = user
+                    req.app.locals.isLoggedIn = true;
+                    res.redirect('/profile')                  
                   })
                   .catch((err) => {
                       next(err)
@@ -71,32 +61,30 @@ const hash = bcrypt.hashSync(password, salt);
 })
 
 router.post('/signin', (req, res, next) => {
-    passport.authenticate('local', (err, theUser, failureDetails) => {
-      if (err) {
-        // Something went wrong authenticating user
-        return next(err);
-        
-      }
-   
-      if (!theUser) {
-        // Unauthorized, `failureDetails` contains the error messages from our logic in "LocalStrategy" {message: '…'}.
-        return res.render('auth/signin.hbs', {title:'sign in or sign up', message: failureDetails.message });
-      }
-      
-      // save user in session: req.user
-      req.login(theUser, err => {
-        if (err) {
-          // Session save went bad
-          return next(err);
+    const {username, password} = req.body
+    console.log('reqbody is ', req.body)
+    User.findOne({username})
+      .then((user) => {
+        if (user) { 
+          console.log('user found')
+          let isPasswordMatching = bcrypt.compareSync(password, user.password)
+          console.log('password status', isPasswordMatching)
+          if (isPasswordMatching) {
+            req.session.loggedInUser = user
+            res.redirect("/profile")
+          } else{
+            res.render("auth/signin", {error: "Incorrect password"})
+          }
+        } else {
+          res.render("auth/signin", { error: "Username does not exist"})
         }
-        
-        // All good, we are now logged in and `req.user` is now set
-        req.app.locals.isLoggedIn = true;
-        console.log('usssseeeerrr', theUser)
-        req.session.loggedInUser = theUser
-        res.redirect('/profile')
-      });
-    })(req, res, next);
+
+      })
+      .catch((err) => {
+          next(err)
+      }) 
+
+
 });
 
 
