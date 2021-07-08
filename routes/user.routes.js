@@ -28,7 +28,7 @@ router.get('/profile', (req, res, next) => {
     .populate("placesAdded")
     .populate("placesVisited")
     .then((user) => {
-      res.render('user/profile', {title: mainUser.username, username: mainUser.username, country: mainUser.country, profilePic: mainUser.profilePic, placesAdded: user.placesAdded, placesVisited: user.placesVisited});
+      res.render('user/profile', {title: user.username, username: user.username, country: user.country, profilePic: user.profilePic, placesAdded: user.placesAdded, placesVisited: user.placesVisited});
     })
     .catch((err) => {
       next(err)
@@ -47,25 +47,26 @@ router.post('/account/edit', uploader.single("profilePic"), (req, res, next) => 
 // the uploader.single() callback will send the file to cloudinary and get you and obj with the url in return
 
   let { username, email, country, password, confirmPassword } = req.body
+
   if ( !username || !email || !country || !password || !confirmPassword ) { 
-    res.render('auth/signup.hbs', {error: 'Please enter all fields'})
+    res.render('user/account', {error: 'Please enter all fields'})
     return
 }
 
 // Check for email
 const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/; //isso é regular expression (isso é para criar um padrão que deve ter o email)
 if ( !re.test(email)) {
-    res.render('auth/signup.hbs', {error: 'Email not in valid format'})
+    res.render('auth/account.hbs', {error: 'Email not in valid format'})
     return;
   }
  // Check for password
 const re2 = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
 if ( !re2.test(password)) {
-    res.render('auth/signup.hbs', {error: 'Password needs to have a special character, a number, and be 6-16 characters'})
+    res.render('auth/account.hbs', {error: 'Password needs to have a special character, a number, and be 6-16 characters'})
     return;
   }
 if ( !password === confirmPassword) {
-    res.render('auth/signup.hbs', {error: "The two passwords don't match"})
+    res.render('auth/account.hbs', {error: "The two passwords don't match"})
     return;
 }
 
