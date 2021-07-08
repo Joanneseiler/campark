@@ -8,22 +8,22 @@ const uploader = require('../config/cloudinary.config.js');
 
 router.get('/profile', (req, res, next) => {
     // if (!req.session.loggedInUser) {
-      if(!req.user && !req.session.loggedInUser){
-        console.log("nao is here" +  req.user)
-        console.log("nao is here" + req.session.loggedInUser )
+      if(!req.session.loggedInUser){
+        console.log('issue here', req.user)
+        console.log("issue hereeeee" + req.session.loggedInUser)
+        console.log('session is', req.session)
         res.redirect('/signin'); // can't access the page, so go and log in
         return;
       }
       // When the login operation completes, user will be assigned to req.user. This function is primarily used when users sign up, during which req.login() can be invoked to automatically log in the newly registered user.
       req.app.locals.isLoggedIn = true;
       let mainUser = req.session.loggedInUser
-      console.log("mainUser " + mainUser  + "\n")
 
       if (mainUser === undefined) {
          mainUser = req.user
-         console.log("!mainUser === undefined " + mainUser + "\n" )
       } 
-      console.log('Mariana-Joanne see here' , mainUser)
+
+    console.log("is not undefined hereeeee" + req.session.loggedInUser)
     User.findOne({_id: mainUser._id})
     .populate("placesAdded")
     .populate("placesVisited")
@@ -45,7 +45,6 @@ router.get('/account', (req, res, next) => {
 
 router.post('/account/edit', uploader.single("profilePic"), (req, res, next) => {
 // the uploader.single() callback will send the file to cloudinary and get you and obj with the url in return
-console.log('file is: ', req.file)
 
   let { username, email, country, password, confirmPassword } = req.body
   if ( !username || !email || !country || !password || !confirmPassword ) { 

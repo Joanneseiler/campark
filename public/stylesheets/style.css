@@ -493,3 +493,39 @@ div.google {
   display: flex;
   flex-direction: column;
 }
+
+/* not-found page */
+
+#title-error {
+  font-weight: 700;
+  font-size: 70px;
+  letter-spacing: 4px;
+}
+
+#button-home {
+  border-radius: 10px;
+  background-color: #1A2F3D;
+  font-size: 14px;
+  padding: 12px 45px;
+  letter-spacing: 1.6px;
+  transition: transform 80ms ease-in;
+  width: 30%;
+  height: 42px;
+  text-align: center;
+  margin: 10px
+}
+
+#button-home a {
+  text-decoration: none;
+  color: #F1F1F1;
+}
+
+#button-home:hover {
+  background: linear-gradient(to bottom right, #1A2F3D, #264255);
+  cursor: pointer;
+  font-size: 16px;
+}
+
+#p-error {
+  margin: 10px 0
+}
