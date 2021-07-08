@@ -53,24 +53,37 @@ router.post('/account/edit', uploader.single("profilePic"), (req, res, next) => 
 
   if ( !username || !email || !country || !password || !confirmPassword ) { 
     res.render('user/account', {error: 'Please enter all fields'})
-    return
+    return User.findOne({_id: req.session.loggedInUser._id})
+      .then((user) => {
+        res.render('user/account.hbs', {error: 'Please enter all fields', title: `${user.username}'s account`, username: user.username, email: user.email, country: user.country, profilePic: user.profilePic})
+      })
 }
 
 // Check for email
 const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/; //isso é regular expression (isso é para criar um padrão que deve ter o email)
 if ( !re.test(email)) {
-    res.render('user/account.hbs', {error: 'Email not in valid format'})
-    return;
+  return User.findOne({_id: req.session.loggedInUser._id})
+  .then((user) => {
+    res.render('user/account.hbs', {error: 'Email not in valid format', title: `${user.username}'s account`, username: user.username, email: user.email, country: user.country, profilePic: user.profilePic})
+  })
+
   }
  // Check for password
  const re3 = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
 if ( !re3.test(password)) {
-    res.render('user/account.hbs', {error: 'Password needs to have a special character, a number, and be 6-16 characters'})
-    return;
+  return User.findOne({_id: req.session.loggedInUser._id})
+  .then((user) => {
+    res.render('user/account.hbs', {error: 'Password needs to have a special character, a number, and be 6-16 characters', title: `${user.username}'s account`, username: user.username, email: user.email, country: user.country, profilePic: user.profilePic})
+  })
   }
-if ( !password === confirmPassword) {
-    res.render('user/account.hbs', {error: "The two passwords don't match"})
-    return;
+
+  console.log(!password == confirmPassword + " password === confirmPassword")
+
+if (!(password === confirmPassword)) {
+  return User.findOne({_id: req.session.loggedInUser._id})
+  .then((user) => {
+    res.render('user/account.hbs', {error: "The two passwords don't match", title: `${user.username}'s account`, username: user.username, email: user.email, country: user.country, profilePic: user.profilePic})
+  })
 }
 
 const salt = bcrypt.genSaltSync(10);
@@ -132,7 +145,10 @@ const hash = bcrypt.hashSync(password, salt);
         }
         
       } else {
-        res.render('user/account.hbs', {error: 'Username already exists'})
+        return User.findOne({_id: req.session.loggedInUser._id})
+        .then((user) => {
+          res.render('user/account.hbs', {error: "Username already exists", title: `${user.username}'s account`, username: user.username, email: user.email, country: user.country, profilePic: user.profilePic})
+        })
       }
     })
   }

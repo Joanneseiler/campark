@@ -308,16 +308,17 @@
             </div>
         </div>
     </div>
+    {{#if message}}
+    <p class="error">{{message}}</p>
+    {{/if}}
+
+    {{#if error}}
+    <p class="error">{{error}}</p>
+    {{/if}}
 </div>
 
 {{!-- error message --}}
 
-{{#if message}}
-<p class="error">{{message}}</p>
-{{/if}}
 
-{{#if error}}
-<p class="error">{{error}}</p>
-{{/if}}
 
 <script src="/js/auth.js"></script>
