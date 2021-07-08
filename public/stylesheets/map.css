@@ -1,17 +1,17 @@
 .distance {
-  margin-top: 60px
+  margin-top: 40px
 }
 
-/* #map-header h1{
-  font-size: 18;
+/* .map-header h1{
+  font-size: 18px!important;
 } */
 
 #mapid { 
-	height: 80%;
+	height: 70%;
   width: 80%;
   margin: 0 64px;
   border-radius: 20px;
-  margin-top: 58px;
+  margin-top: 5px;
 }
 
 .leaflet-popup-close-button {

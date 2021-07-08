@@ -1,8 +1,12 @@
 <div class="both-centered distance">
-    <h1 id="map-header">Search places or add some on the map</h1>
+    <h1 class="map-header">Search places or add some on the map</h1>
+    <div class="map-searchbar">
+        <input type="text" id="searchbar" placeholder="In which city or town do you want to park?"></input>
+    </div>
     <div id="mapid"></div>
 </div>
 
+<script src="/js/search.js"></script>
 <script src="/js/map.js"></script>
 <script>initMap({{ loc }}, {{ zoomLevel }})</script>
 
