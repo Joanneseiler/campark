@@ -9,8 +9,7 @@ const reviewSchema = new Schema({
       required: true,
   },
     date: {
-      type: Date,
-      default: Date.now
+      type: String
     },
     comment: {
         type: String,

@@ -7,18 +7,28 @@ const bcrypt = require('bcryptjs');
 const uploader = require('../config/cloudinary.config.js');
 
 router.get('/profile', (req, res, next) => {
-    if (!req.user) {
-        console.log("nao is here")
+    // if (!req.session.loggedInUser) {
+      if(!req.user && !req.session.loggedInUser){
+        console.log("nao is here" +  req.user)
+        console.log("nao is here" + req.session.loggedInUser )
         res.redirect('/signin'); // can't access the page, so go and log in
         return;
       }
-      // ok, req.user is defined
+      // When the login operation completes, user will be assigned to req.user. This function is primarily used when users sign up, during which req.login() can be invoked to automatically log in the newly registered user.
       req.app.locals.isLoggedIn = true;
-    User.findOne({_id: req.user._id})
+      let mainUser = req.session.loggedInUser
+      console.log("mainUser " + mainUser  + "\n")
+
+      if (mainUser === undefined) {
+         mainUser = req.user
+         console.log("!mainUser === undefined " + mainUser + "\n" )
+      } 
+      console.log('Mariana-Joanne see here' , mainUser)
+    User.findOne({_id: mainUser._id})
     .populate("placesAdded")
     .populate("placesVisited")
     .then((user) => {
-      res.render('user/profile', {title: req.user.username, username: req.user.username, country: req.user.country, profilePic: req.user.profilePic, placesAdded: user.placesAdded, placesVisited: user.placesVisited});
+      res.render('user/profile', {title: mainUser.username, username: mainUser.username, country: mainUser.country, profilePic: mainUser.profilePic, placesAdded: user.placesAdded, placesVisited: user.placesVisited});
     })
     .catch((err) => {
       next(err)
@@ -36,13 +46,8 @@ router.get('/account', (req, res, next) => {
 router.post('/account/edit', uploader.single("profilePic"), (req, res, next) => {
 // the uploader.single() callback will send the file to cloudinary and get you and obj with the url in return
 console.log('file is: ', req.file)
-if (!req.file) {
-  console.log("there was an error uploading the file")
-  next(new Error('No file uploaded!'));
-  return;
-}
+
   let { username, email, country, password, confirmPassword } = req.body
-  let profilePic = req.file.path
   if ( !username || !email || !country || !password || !confirmPassword ) { 
     res.render('auth/signup.hbs', {error: 'Please enter all fields'})
     return
@@ -70,31 +75,57 @@ const salt = bcrypt.genSaltSync(10);
 const hash = bcrypt.hashSync(password, salt);
 
   let userId = req.user._id
-  if (profilePic === "") {
-    profilePic = "images/default-avatar.png"
-  } 
-  
+  let profilePic = ""
+  if (req.file) {
+    profilePic = req.file.path
+  }
+
+ 
   if(username === req.user.username ) {
-    User.findByIdAndUpdate({_id: userId}, {profilePic, username, email, country, password:hash}, {new: true})
-    .then((userUpdated) => {
-      req.session.user = userUpdated
-      res.redirect('/profile')
-    })
-    .catch((err) => {
-      next(err)
-    })
+    if(profilePic === "") {
+      User.findByIdAndUpdate({_id: userId}, {username, email, country, password:hash}, {new: true})
+      .then((userUpdated) => {
+        req.session.user = userUpdated
+        res.redirect('/profile')
+      })
+      .catch((err) => {
+        next(err)
+      })
+    } else {
+      User.findByIdAndUpdate({_id: userId}, {profilePic, username, email, country, password:hash}, {new: true})
+      .then((userUpdated) => {
+        req.session.user = userUpdated
+        res.redirect('/profile')
+      })
+      .catch((err) => {
+        next(err)
+      })
+    }
+    
   } else {
     User.findOne({username})
     .then((user) => {
       if(!user){
-        User.findByIdAndUpdate({_id: userId}, {profilePic, username, email, country, password:hash}, {new: true})
-        .then((userUpdated) => {
-          req.session.user = userUpdated
-          res.redirect('/profile')
-        })
-        .catch((err) => {
-          next(err)
-        })
+        if(profilePic === "") {
+          User.findByIdAndUpdate({_id: userId}, {username, email, country, password:hash}, {new: true})
+          .then((userUpdated) => {
+            req.session.user = userUpdated
+            res.redirect('/profile')
+          })
+          .catch((err) => {
+            next(err)
+          })
+        } else {
+          User.findByIdAndUpdate({_id: userId}, {profilePic, username, email, country, password:hash}, {new: true})
+          .then((userUpdated) => {
+            req.session.user = userUpdated
+            res.redirect('/profile')
+          })
+          .catch((err) => {
+            next(err)
+          })
+        }
+        
       } else {
         res.render('user/account.hbs', {error: 'Username already exists'})
       }
@@ -105,10 +136,11 @@ const hash = bcrypt.hashSync(password, salt);
 router.post('/account/delete', (req, res, next) => {
   User.findOneAndRemove({_id: req.user._id})
   .then(() => {
-    req.logout();
-    req.session.destroy()
-    req.app.locals.isLoggedIn = false;
-    res.redirect('/');
+    req.session.destroy(function(e){
+      req.logout();
+      req.app.locals.isLoggedIn = false;
+      res.redirect('/');
+    }); 
   })
   .catch((err) => {
     next(err)

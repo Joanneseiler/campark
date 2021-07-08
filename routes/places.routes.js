@@ -47,6 +47,13 @@ router.post("/places/add", uploader.single("image"), (req, res, next) => {
         image = req.file.path
     }
     const user = req.user._id
+
+    //I thought this could be a solution fot the errors but is rerendering the page
+    // if ( !address || !description || !price || !rate) { 
+    //     res.render('places/map', {error: 'Please enter all fields', address, description, price, rate})
+    // return
+    // }
+
     Place.create({address, description, price, rate, latitude, longitude, authorId: user, image: image})
     .then((place) => {
         User.findByIdAndUpdate({_id: user}, { $push: { placesAdded: place._id } })
@@ -70,7 +77,12 @@ router.get("/places/:placeId", (req, res, next) => {
     Place.findById(dynamicPlacesId)
         .populate('reviews')
         .then((place) => {
-            res.render("places/details.hbs", {place: place, ratingStars: "★".repeat(place.rate) + "☆".repeat(5-place.rate), profilePic})
+            Review.find({placeId: dynamicPlacesId})
+            .populate("userId")
+            .then((reviews) => {
+                place.reviews = reviews
+                res.render("places/details.hbs", {place: place, ratingStars: "★".repeat(place.rate) + "☆".repeat(5-place.rate), profilePic})
+            })
         })
         .catch((err)=>{
             next(err)
@@ -78,11 +90,22 @@ router.get("/places/:placeId", (req, res, next) => {
 })
 
 router.post("/places/:placeId/review", (req, res, next) => {
-    const placeId = req.params.placeId //this gets the dynamically id after the :
+    const placeId = req.params.placeId
     const {rate, date, comment} = req.body
     const user = req.user._id
+    const dateNow = new Date
+    let day = dateNow.getDate();
+    let month = dateNow.getMonth() + 1;
+    let year = dateNow.getFullYear();
+    if (day < 10) {
+        day = '0' + day;
+    }
+    if (month < 10) {
+        month = '0' + month;
+    }
+    let dateFormated = day + '/' + month + '/' + year;
 
-    Review.create({rate, date, comment, userId: user})
+    Review.create({rate, date: dateFormated, comment, userId: user, placeId: placeId})
     .then((review)=> {
         return Place.findByIdAndUpdate({_id: placeId}, { $push: { reviews: review._id}})
     })
