@@ -380,7 +380,7 @@ div.google {
 
 #profile-img {
   border-radius: 50%;
-  width: 15%;
+  width: 25%;
   margin: 0 !important;
   align-self: center;
 }
@@ -478,7 +478,7 @@ div.google {
   border: 1px solid #1A2F3D;
   font-size: 14px;
   margin: 50px 0;
-  width: 60%;
+  width: 70%;
 }
 
 #btn-delete:hover {

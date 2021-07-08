@@ -53,22 +53,22 @@ console.log('file is: ', req.file)
     return
 }
 
-// // Check for email
-// const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/; //isso é regular expression (isso é para criar um padrão que deve ter o email)
-// if ( !re.test(email)) {
-//     res.render('auth/signup.hbs', {error: 'Email not in valid format'})
-//     return;
-//   }
-//  // Check for password
-// const re2 = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
-// if ( !re2.test(password)) {
-//     res.render('auth/signup.hbs', {error: 'Password needs to have a special character, a number, and be 6-16 characters'})
-//     return;
-//   }
-// if ( !password === confirmPassword) {
-//     res.render('auth/signup.hbs', {error: "The two passwords don't match"})
-//     return;
-// }
+// Check for email
+const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/; //isso é regular expression (isso é para criar um padrão que deve ter o email)
+if ( !re.test(email)) {
+    res.render('auth/signup.hbs', {error: 'Email not in valid format'})
+    return;
+  }
+ // Check for password
+const re2 = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
+if ( !re2.test(password)) {
+    res.render('auth/signup.hbs', {error: 'Password needs to have a special character, a number, and be 6-16 characters'})
+    return;
+  }
+if ( !password === confirmPassword) {
+    res.render('auth/signup.hbs', {error: "The two passwords don't match"})
+    return;
+}
 
 const salt = bcrypt.genSaltSync(10);
 

@@ -1,4 +1,5 @@
-<div class="both-centered">
+<div class="both-centered distance">
+    <h1 id="map-header">Search places or add some on the map</h1>
     <div id="mapid"></div>
 </div>
 
@@ -33,7 +34,7 @@
             <label for="star3" title="text">3 stars</label>
             <input type="radio" id="star2" name="rate" value="2" />
             <label for="star2" title="text">2 stars</label>
-            <input type="radio" id="star1" name="rate" value="1" />
+            <input type="radio" id="star1" name="rate" value="1" required/>
             <label for="star1" title="text">1 star</label>
         </div>
         <input type="hidden" name="latitude" id="latitude" />
@@ -53,7 +54,6 @@
     <p id="details-price"></p>
     <p id="details-rate"></p>
     <a id="details-link"><button id="details-button">DETAILS</button></a>
-</div>
 </div>
 
 {{#if error}}

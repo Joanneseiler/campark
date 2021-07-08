@@ -22,7 +22,7 @@
             <form action="/places/{{place._id}}/review" method="POST">
                 <h3>Description</h3>
                 <textarea minlength="20" maxlength="200" name="comment"
-                    placeholder="Please leave a review and help other travelers."></textarea>
+                    placeholder="Please leave a review and help other travelers." required></textarea>
                 <h3>Rating</h3>
                 <div class="rate">
                     <input type="radio" id="star5" name="rate" value="5" />
@@ -33,7 +33,7 @@
                     <label for="star3" title="text">3 stars</label>
                     <input type="radio" id="star2" name="rate" value="2" />
                     <label for="star2" title="text">2 stars</label>
-                    <input type="radio" id="star1" name="rate" value="1" />
+                    <input type="radio" id="star1" name="rate" value="1" required/>
                     <label for="star1" title="text">1 star</label>
                 </div>
                 <button type="submit">SUBMIT</button>
