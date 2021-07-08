@@ -79,7 +79,7 @@ if (process.env.CLIENT_ID && process.env.CLIENT_SECRET) {
           {
             clientID: process.env.CLIENT_ID,
             clientSecret: process.env.CLIENT_SECRET,
-            callbackURL: "http://localhost:3000/auth/google/callback"
+            callbackURL: "https://campark.herokuapp.com/auth/google/callback"
           },
           (accessToken, refreshToken, profile, done) => {
             // to see the structure of the data in received response:
