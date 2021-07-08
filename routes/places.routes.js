@@ -18,7 +18,7 @@ router.get("/map", async (req, res, next) => {
         {
             title: "Places", 
             loc: JSON.stringify(loc), 
-            profilePic: req.user != null ? req.user.profilePic : null,
+            profilePic: req.session.loggedInUser != null ? req.session.loggedInUser.profilePic : null,
             zoomLevel
         }
     )
@@ -46,7 +46,7 @@ router.post("/places/add", uploader.single("image"), (req, res, next) => {
     else {
         image = req.file.path
     }
-    const user = req.user._id
+    const user = req.session.loggedInUser._id
 
     //I thought this could be a solution fot the errors but is rerendering the page
     // if ( !address || !description || !price || !rate) { 
@@ -71,7 +71,7 @@ router.get("/places/:placeId", (req, res, next) => {
     let dynamicPlacesId = req.params.placeId
     let profilePic = "/images/default-avatar.png"
     if (req.app.locals.isLoggedIn) {
-       profilePic = req.user.profilePic
+       profilePic = req.session.loggedInUser.profilePic
     }
     Place.findById(dynamicPlacesId)
         .populate('reviews')
@@ -91,7 +91,7 @@ router.get("/places/:placeId", (req, res, next) => {
 router.post("/places/:placeId/review", (req, res, next) => {
     const placeId = req.params.placeId
     const {rate, date, comment} = req.body
-    const user = req.user._id
+    const user = req.session.loggedInUser._id
     const dateNow = new Date
     let day = dateNow.getDate();
     let month = dateNow.getMonth() + 1;
