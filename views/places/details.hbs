@@ -41,9 +41,8 @@
             <div class="details-divider"></div>
             <div id="existing-reviews">
             {{#each place.reviews}}
-            <p>{{this.userId.username}}</p>
-            <p> {{this.date}}</p>
-            <p>{{this.rate}}</p>
+            <p><span class="username">{{this.userId.username}}</span> {{this.date}}</p>
+            <p>{{this.displayedStars}}</p>
             <p>"{{this.comment}}"<br><br></p>
             {{/each}}
             </div>

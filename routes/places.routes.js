@@ -80,6 +80,9 @@ router.get("/places/:placeId", (req, res, next) => {
             .populate("userId")
             .then((reviews) => {
                 place.reviews = reviews
+                reviews.forEach((review) => {
+                    review.displayedStars = "★".repeat(review.rate) + "☆".repeat(5-review.rate)
+                })
                 res.render("places/details.hbs", {place: place, ratingStars: "★".repeat(place.rate) + "☆".repeat(5-place.rate), profilePic})
             })
         })

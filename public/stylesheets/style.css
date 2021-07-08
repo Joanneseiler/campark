@@ -447,6 +447,8 @@ div.google {
 #profile-box {
   display: inline-flex;
   flex-direction: column;
+  width: 100%;
+  max-width: 1200px;
 }
 
 .place-type-visited {
@@ -528,4 +530,9 @@ div.google {
 
 #p-error {
   margin: 10px 0
+}
+
+#gif-error {
+  border-radius: 24px;
+  margin: 32px;
 }

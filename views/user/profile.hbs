@@ -8,9 +8,10 @@
         <div class="places-info">
             <div id="places-addded-info">
                 {{#if (listEmpty placesAdded.length)}}
-                <h6 class="place-type"> <span class="num-info">{{placesAdded.length}}</span> Place added
+                <h6 class="place-type">
+                    <span class="num-info">{{placesAdded.length}}</span> Place added
                 </h6>
-                <p class="zero-results-profile">Go to FIND A PLACE and add new spots to help other travelers</p>
+                <p class="zero-results-profile">Go to <a href="/map">PLACES</a> and add new spots to help other travelers</p>
                 {{else}}
                 <h6 class="place-type"> <span class="num-info">{{placesAdded.length}}</span> Places added
                 </h6>

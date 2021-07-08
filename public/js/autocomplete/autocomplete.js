@@ -98,7 +98,7 @@
               var scrollTop = window.pageYOffset || docEl.scrollTop;
               var scrollLeft = window.pageXOffset || docEl.scrollLeft;
               inputRect = input.getBoundingClientRect();
-              var top = inputRect.top + input.offsetHeight + scrollTop - clientTop;
+              var top = inputRect.top + input.offsetHeight + scrollTop - clientTop + 4;
               var left = inputRect.left + scrollLeft - clientLeft;
               containerStyle.top = top + "px";
               containerStyle.left = left + "px";

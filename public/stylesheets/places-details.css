@@ -70,6 +70,15 @@
     color: rgba(0, 0, 0, 0.56);
   }
 
+  #review #existing-reviews p {
+    font-size: 13px;
+    margin: 16px 0;
+  }
+
+  .username {
+      font-weight: bold;
+  }
+
   #review form {
       width: 100%;
       padding: 0;
