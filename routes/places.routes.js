@@ -56,11 +56,11 @@ router.post("/places/add", uploader.single("image"), (req, res, next) => {
 
     Place.create({address, description, price, rate, latitude, longitude, authorId: user, image: image})
     .then((place) => {
-        User.findByIdAndUpdate({_id: user}, { $push: { placesAdded: place._id } })
-        return place;
-    })
-    .then((place)=>{
-        res.redirect(`/map?lon=${place.longitude}&lat=${place.latitude}`)
+        console.log(place)
+        User.findByIdAndUpdate({_id: user}, { $push: { placesAdded: place._id, placesVisited: place._id  } })
+        .then(() => {
+        res.redirect(`/map?lon=${place.longitude}&lat=${place.latitude}`)  
+       })
     })
     .catch((err)=>{
         next(err)
@@ -73,7 +73,6 @@ router.get("/places/:placeId", (req, res, next) => {
     if (req.app.locals.isLoggedIn) {
        profilePic = req.user.profilePic
     }
-    console.log(dynamicPlacesId)
     Place.findById(dynamicPlacesId)
         .populate('reviews')
         .then((place) => {
@@ -110,13 +109,13 @@ router.post("/places/:placeId/review", (req, res, next) => {
         return Place.findByIdAndUpdate({_id: placeId}, { $push: { reviews: review._id}})
     })
     .then((placeUpdated) => {
-         User.findByIdAndUpdate({_id: user}, { $push: { placesVisited: placeUpdated._id }})
+         User.findByIdAndUpdate({_id: user}, { $push: { placesVisited: placeUpdated._id}})
          .then(() => {
             res.redirect(`/places/${placeId}`)
          })
     })
     .catch((err)=>{
-        console.log(err)
+        next(err)
     })
 })
 

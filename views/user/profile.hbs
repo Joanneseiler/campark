@@ -1,4 +1,4 @@
-<div class="horizontally-centered" >
+<div class="horizontally-centered">
     <div id="profile-box">
         <div id="profile-info">
             <img id="profile-img" src="{{profilePic}}" alt="">
@@ -19,10 +19,10 @@
         <div class="place-details-box">
             {{#each placesAdded}}
             <a href="/places/{{this._id}}">
-            <div class="place-details-item">
-                <img src="{{this.image}}" alt="" class="place-img">
-                <p class="places-address">{{this.address}}</p>
-            </div>
+                <div class="place-details-item">
+                    <img src="{{this.image}}" alt="" class="place-img">
+                    <p class="places-address">{{this.address}}</p>
+                </div>
             </a>
             {{/each}}
             {{/if}}
@@ -31,19 +31,19 @@
             {{#if (listEmpty placesVisited.length)}}
             <h6 class="place-type place-type-visited"> <span class="num-info">{{placesVisited.length}}</span> Place
                 visited</h6>
-            <p class="zero-results-profile">Add a new review in a place to see here the spots that you visited</p>
+            <p class="zero-results-profile">Add a new review to a place to see here the spots that you have visited</p>
             {{else}}
             <h6 class="place-type place-type-visited"> <span class="num-info">{{placesVisited.length}}</span> Places
                 visited</h6>
             <div class="place-details-box">
-            {{#each placesVisited}}
-            <a href="/places/{{this._id}}">
-                <div class="place-details-item">
-                    <img src="{{this.image}}" alt="" class="place-img">
-                    <p class="places-address">{{this.address}}</p>
-                </div>
-            </a>
-            {{/each}}
+                {{#each placesVisited}}
+                <a href="/places/{{this._id}}">
+                    <div class="place-details-item">
+                        <img src="{{this.image}}" alt="" class="place-img">
+                        <p class="places-address">{{this.address}}</p>
+                    </div>
+                </a>
+                {{/each}}
             </div>
             {{/if}}
         </div>

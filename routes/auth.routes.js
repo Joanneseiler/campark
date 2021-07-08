@@ -79,22 +79,22 @@ router.post('/signin', (req, res, next) => {
       }
    
       if (!theUser) {
-        console.log('its here')
-        console.log(failureDetails.message)
         // Unauthorized, `failureDetails` contains the error messages from our logic in "LocalStrategy" {message: '…'}.
         return res.render('auth/signin.hbs', {title:'sign in or sign up', message: failureDetails.message });
       }
-   
+      
       // save user in session: req.user
       req.login(theUser, err => {
         if (err) {
           // Session save went bad
           return next(err);
         }
-   
+        
         // All good, we are now logged in and `req.user` is now set
         req.app.locals.isLoggedIn = true;
-        return res.redirect('/profile')
+        console.log('usssseeeerrr', theUser)
+        req.session.loggedInUser = theUser
+        res.redirect('/profile')
       });
     })(req, res, next);
 });
