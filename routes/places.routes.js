@@ -83,7 +83,7 @@ router.get("/places/:placeId", (req, res, next) => {
                 reviews.forEach((review) => {
                     review.displayedStars = "★".repeat(review.rate) + "☆".repeat(5-review.rate)
                 })
-                res.render("places/details.hbs", {place: place, ratingStars: "★".repeat(place.rate) + "☆".repeat(5-place.rate), profilePic})
+                res.render("places/details.hbs", {title: "Place details", place: place, ratingStars: "★".repeat(place.rate) + "☆".repeat(5-place.rate), profilePic})
             })
         })
         .catch((err)=>{
