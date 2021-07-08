@@ -40,7 +40,10 @@ router.get('/account', (req, res, next) => {
     res.redirect('/signin'); // can't access the page, so go and log in
     return;
   }
-  res.render('user/account.hbs', {title: `${req.session.loggedInUser.username}'s account`, username: req.session.loggedInUser.username, email: req.session.loggedInUser.email, country: req.session.loggedInUser.country, profilePic: req.session.loggedInUser.profilePic})
+  User.findOne({_id: req.session.loggedInUser._id})
+  .then((user) => {
+    res.render('user/account.hbs', {title: `${user.username}'s account`, username: user.username, email: user.email, country: user.country, profilePic: user.profilePic})
+  })
 })
 
 router.post('/account/edit', uploader.single("profilePic"), (req, res, next) => {
@@ -59,12 +62,12 @@ if ( !re.test(email)) {
     res.render('user/account.hbs', {error: 'Email not in valid format'})
     return;
   }
-//  // Check for password
-// const re2 = /^(?=.[0-9])(?=.[!@#$%^&])[a-zA-Z0-9!@#$%^&]{6,16}$/;
-// if ( !re2.test(password)) {
-//     res.render('user/account.hbs', {error: 'Password needs to have a special character, a number, and be 6-16 characters'})
-//     return;
-//   }
+ // Check for password
+ const re3 = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
+if ( !re3.test(password)) {
+    res.render('user/account.hbs', {error: 'Password needs to have a special character, a number, and be 6-16 characters'})
+    return;
+  }
 if ( !password === confirmPassword) {
     res.render('user/account.hbs', {error: "The two passwords don't match"})
     return;
@@ -85,16 +88,17 @@ const hash = bcrypt.hashSync(password, salt);
     if(profilePic === "") {
       User.findByIdAndUpdate({_id: userId}, {username, email, country, password:hash}, {new: true})
       .then((userUpdated) => {
-        req.session.user = userUpdated
+        req.session.loggedInUser = userUpdated
         res.redirect('/profile')
       })
       .catch((err) => {
         next(err)
       })
     } else {
+      req.session.loggedInUser.profilePic = profilePic
       User.findByIdAndUpdate({_id: userId}, {profilePic, username, email, country, password:hash}, {new: true})
       .then((userUpdated) => {
-        req.session.user = userUpdated
+        req.session.loggedInUser = userUpdated
         res.redirect('/profile')
       })
       .catch((err) => {
@@ -109,16 +113,17 @@ const hash = bcrypt.hashSync(password, salt);
         if(profilePic === "") {
           User.findByIdAndUpdate({_id: userId}, {username, email, country, password:hash}, {new: true})
           .then((userUpdated) => {
-            req.session.user = userUpdated
+            req.session.isLoggedIn = userUpdated
             res.redirect('/profile')
           })
           .catch((err) => {
             next(err)
           })
         } else {
+          req.session.loggedInUser.profilePic = profilePic
           User.findByIdAndUpdate({_id: userId}, {profilePic, username, email, country, password:hash}, {new: true})
           .then((userUpdated) => {
-            req.session.user = userUpdated
+            req.session.isLoggedIn = userUpdated
             res.redirect('/profile')
           })
           .catch((err) => {

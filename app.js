@@ -128,15 +128,15 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use((req,res,next) => {
+// app.use((req,res,next) => {
   
-  req.app.locals.profilePic = "images/default-avatar.png"
-  if (req.app.locals.isLoggedIn) {
-     req.app.locals.profilePic = req.session.loggedInUser.profilePic
-  }  
-  req.app.locals.isLoggedIn = !!req.session.loggedInUser;
-  next()
-})
+// // req.app.locals.profilePic = "images/default-avatar.png"
+//   if (req.app.locals.isLoggedIn) {
+//      req.app.locals.profilePic = req.session.loggedInUser.profilePic
+//   }  
+//   req.app.locals.isLoggedIn = !!req.session.loggedInUser;
+//   next()
+// })
 
 // 👇 Start handling routes here
 const homeRoutes = require("./routes/home.routes");
