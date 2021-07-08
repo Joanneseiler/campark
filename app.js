@@ -131,9 +131,9 @@ app.use(passport.session());
 app.use((req,res,next) => {
   
 // req.app.locals.profilePic = "images/default-avatar.png"
-  if (req.app.locals.isLoggedIn) {
-     req.app.locals.profilePic = req.session.loggedInUser.profilePic
-  }  
+  // if (req.app.locals.isLoggedIn) {
+  //    req.app.locals.profilePic = req.session.loggedInUser.profilePic
+  // }  
   req.app.locals.isLoggedIn = !!req.session.loggedInUser;
   next()
 })
