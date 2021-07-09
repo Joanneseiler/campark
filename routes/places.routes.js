@@ -13,12 +13,20 @@ router.get("/map", async (req, res, next) => {
         loc = [parseFloat(req.query.lat), parseFloat(req.query.lon)]
         zoomLevel = 13
     }
+
+     if (req.app.locals.isLoggedIn) {
+        if(req.session.loggedInUser.profilePic == 'images/default-avatar.png') {
+            profilePic = "../"+req.session.loggedInUser.profilePic
+        } else {
+            profilePic = req.session.loggedInUser.profilePic
+        }
+      } 
     res.render(
         "places/map.hbs", 
         {
             title: "Places", 
             loc: JSON.stringify(loc), 
-            // profilePic: req.session.loggedInUser != null ? req.session.loggedInUser.profilePic : null,
+             profilePic: profilePic,
             zoomLevel
         }
     )
