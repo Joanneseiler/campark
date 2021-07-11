@@ -14,6 +14,8 @@ router.get("/map", async (req, res, next) => {
         zoomLevel = 13
     }
 
+    let profilePic = "../images/default-avatar.png"
+
      if (req.app.locals.isLoggedIn) {
         if(req.session.loggedInUser.profilePic == 'images/default-avatar.png') {
             profilePic = "../"+req.session.loggedInUser.profilePic
