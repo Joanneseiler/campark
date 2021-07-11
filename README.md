@@ -3,7 +3,7 @@
 
 ## Description
 
-This is a website where the user can find places to park their camper or car for free. The user can add locations as well and help other adventurers looking for a place to spend the night.
+This is a website where the user can find places to park their camper or car overnight. The user can also add places and help other adventurers who are looking for a place to stay.
 
 ## User Stories
 
@@ -19,6 +19,7 @@ This is a website where the user can find places to park their camper or car for
 
 
 ## Backlog
+(See Trello for more infos.)
 
 List of other features outside of the MVPs scope
 
@@ -37,6 +38,7 @@ MapPage:
 
 
 ## ROUTES:
+(The routes are not up to date.)
 
 - GET /
   - renders the homepage (homepage.hbs)
@@ -155,14 +157,10 @@ https://whimsical.com/mid-fi-ANxGLpKBH9jvDcHJm4Qvhj
 
 ### Git
 
-The url to your repository and to your deployed project
-
 [Repository Link](https://github.com/Joanneseiler/campark)
 
 [Deploy Link](https://campark-app.herokuapp.com/map)
 
 ### Slides
-
-The url to your presentation slides
 
 [Slides Link](https://drive.google.com/file/d/1DT7e2nw0LnM5XHEzo2p4nNTvoILiRWdT/view?usp=sharing)
