@@ -92,20 +92,39 @@ MapPage:
 User model
 
 ```
-username: String
-country: String
-email: String
-password: String
+username: String,
+password: String,
+email: String,
+country: String,
+googleID: String,
+profilePic: String,
+placesAdded: ObjectId<Place>,
+placesVisited: ObjectId<Place>,
+timestamps: true
 ```
 
 Place model
 
 ```
-user: ObjectId<User>
-place: String
-description: String
-latitude: Number
-longitude: Number
+latitude: Number,
+longitude: Number,
+address: String,
+description: String,
+price: String,
+rate: Number,
+authorId: ObjectId<User>
+image: String,
+reviews: ObjectId<Review>
+
+```
+Review model
+
+```
+rate: Number,
+date: String,
+comment: String,
+userId: ObjectId<User>
+placeId: ObjectId<Place>
 
 ```
 
@@ -113,6 +132,7 @@ longitude: Number
 
 ### API
 https://nominatim.org/release-docs/develop/api/Reverse/
+https://nominatim.org/release-docs/develop/api/Search/
 
 ### Map Library
 
@@ -139,10 +159,10 @@ The url to your repository and to your deployed project
 
 [Repository Link](https://github.com/Joanneseiler/campark)
 
-[Deploy Link](http://heroku.com)
+[Deploy Link](https://campark-app.herokuapp.com/map)
 
 ### Slides
 
 The url to your presentation slides
 
-[Slides Link](http://slides.com)
+[Slides Link](https://drive.google.com/file/d/1DT7e2nw0LnM5XHEzo2p4nNTvoILiRWdT/view?usp=sharing)
