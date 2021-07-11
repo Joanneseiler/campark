@@ -134,6 +134,7 @@ placeId: ObjectId<Place>
 
 ### API
 https://nominatim.org/release-docs/develop/api/Reverse/
+
 https://nominatim.org/release-docs/develop/api/Search/
 
 ### Map Library
