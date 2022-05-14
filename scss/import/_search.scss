@@ -1,0 +1,20 @@
+.map-searchbar {
+	width: 80%;
+}
+.home-searchbar {
+	margin-bottom: 60px;
+}
+#searchbar {
+	outline: none;
+	background: url(/images/marker.png) no-repeat scroll 12px 9px;
+	background-size: 24px;
+	padding-left: 48px;
+	background-color: white;
+	border-radius: 20px;
+	box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.20);
+	border: none;
+}
+#searchbar.searching {
+	background: url(/images/search-loader.gif) no-repeat scroll 18px 14px;
+	background-color: white;
+}

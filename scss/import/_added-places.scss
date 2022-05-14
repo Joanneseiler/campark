@@ -1,0 +1,28 @@
+.leaflet-popup.popup-details {
+	.leaflet-popup-content-wrapper {
+		font-family: "Poppins", sans-serif;
+	}
+	.leaflet-popup-close-button {
+		&:hover {
+			color: #C5D1D8 !important;
+		}
+	}
+}
+#details-button {
+	width: 100%;
+}
+.custom-place-details-popup-content {
+	p {
+		font-size: 16px;
+		color: #666666;
+		font-weight: normal;
+	}
+}
+#details-city {
+	font-weight: bold;
+	font-size: 18px;
+	color: black;
+}
+#details-rate {
+	color: #bbbbbb;
+}
