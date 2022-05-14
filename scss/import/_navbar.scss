@@ -32,6 +32,7 @@
 	justify-content: center;
 	align-items: center;
 	color: #484848;
+	margin-right: 10px
 }
 .nav-link {
 	color: #F2F2F2;
@@ -62,4 +63,7 @@
 	align-items: center;
 	padding: 0;
 	margin: 0;
+}
+.dropdown-menu[data-bs-popper] {
+	left: -20px
 }

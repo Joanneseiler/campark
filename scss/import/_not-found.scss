@@ -34,24 +34,3 @@
 .error-distance {
 	margin-top: 60px;
 }
-footer {
-	z-index: 1001;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	width: 100%;
-	position: fixed;
-	bottom: 0;
-	height: 60px;
-	color: white;
-	background-color: #1A2F3D;
-	box-shadow: 0px -5px 5px #757575;
-}
-.linkedin-ref {
-	color: #00C6BC;
-	text-decoration: none;
-	&:hover {
-		color: #00C6BC;
-		text-decoration: underline;
-	}
-}
