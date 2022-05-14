@@ -1,0 +1,74 @@
+#profile-box {
+	a {
+		text-decoration: none;
+	}
+	display: inline-flex;
+	flex-direction: column;
+	width: 100%;
+	max-width: 1200px;
+}
+#profile-info {
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 5%;
+	margin-top: 60px;
+}
+#profile-img {
+	border-radius: 50%;
+	width: 170px;
+	margin: 0 !important;
+	align-self: center;
+}
+#profile-username {
+	font-weight: 700;
+	letter-spacing: 0.8px;
+	font-size: 20px;
+	text-align: center;
+	margin: 10px;
+}
+#profile-country {
+	font-weight: 400;
+	letter-spacing: 1.6px;
+	font-size: 16px;
+	color: #1A2F3D;
+	text-align: center;
+	margin: 0;
+}
+.num-info {
+	font-weight: 700;
+	letter-spacing: 1.6px;
+	font-size: 18px;
+}
+.place-img {
+	width: 200px;
+	height: 150px;
+	border-radius: 10%;
+	overflow: hidden;
+}
+.place-type {
+	font-size: 400;
+	letter-spacing: 1.6%;
+	font-size: 18px;
+	margin: 30px 0;
+}
+.zero-results-profile {
+	color: #1A2F3D;
+	font-size: 14px;
+	margin: 0;
+}
+.places-address {
+	color: #1A2F3D;
+	font-size: 12px;
+	width: 200px;
+}
+.place-details-box {
+	display: block;
+}
+.place-details-item {
+	display: inline-flex;
+	flex-direction: column;
+	margin-right: 20px;
+}
+.place-type-visited {
+	margin-top: 50px;
+}

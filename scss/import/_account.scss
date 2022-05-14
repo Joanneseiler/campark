@@ -1,0 +1,50 @@
+#edit-title-header {
+	margin-bottom: 40px;
+	margin-bottom: 40px;
+}
+#edit-profile-form {
+	background-color: transparent;
+	display: flex;
+	justify-content: flex-start;
+	background-color: transparent;
+	display: flex;
+	justify-content: flex-start;
+}
+#delete-profile-form {
+	background-color: transparent;
+	padding: 0;
+	background-color: transparent;
+	padding: 0;
+}
+#btn-delete {
+	background-color: transparent !important;
+	color: #1A2F3D;
+	border: 1px solid #1A2F3D;
+	font-size: 14px;
+	margin: 50px 0;
+	width: 70%;
+	background-color: transparent !important;
+	color: #1A2F3D;
+	border: 1px solid #1A2F3D;
+	font-size: 14px;
+	margin: 50px 0;
+	width: 70%;
+	&:hover {
+		background: linear-gradient(to bottom right, #1A2F3D, #264255);
+		cursor: pointer;
+		font-size: 16px;
+		color: #F1F1F1;
+		background: linear-gradient(to bottom right, #1A2F3D, #264255);
+		cursor: pointer;
+		font-size: 16px;
+		color: #F1F1F1;
+	}
+}
+#edit-page {
+	margin-top: 60px;
+	display: flex;
+	flex-direction: column;
+	margin-top: 60px;
+	display: flex;
+	flex-direction: column;
+}

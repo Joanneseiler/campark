@@ -37,7 +37,7 @@
 	color: #F2F2F2;
 	letter-spacing: 0.05em;
 	padding: 0 !important;
-	margin: 0 50px;
+	margin: 0 0 0 50px;
 	&:hover {
 		color: #C5D1D8;
 	}
@@ -45,7 +45,6 @@
 .navbar-nav {
 	margin: 0 !important;
 	display: flex !important;
-	justify-content: space-evenly !important;
 	width: 100%;
 }
 .fa-bars {
